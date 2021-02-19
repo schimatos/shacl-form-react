@@ -1,55 +1,78 @@
 {
-  "name": "",
+  "name": "shacl-form-react",
   "version": "0.0.0-development",
-  "description": "",
+  "description": "A HTML5 form generator for any SHACL constraint compliant to the W3C standard.",
   "main": "dist/index.js",
   "types": "dist/index.d.js",
   "directories": {
     "lib": "lib"
   },
   "files": [
-    "dist"
+    "dist",
+    "types"
   ],
   "scripts": {
     "test:coverage": "npm test -- --coverage",
     "test:badges": "npm run test:coverage  && jest-coverage-badges",
     "test": "jest",
-    "lint": "eslint lib/* __tests__/* --ext .ts",
-    "lint:fix": "eslint lib/* __tests__/* --ext .ts --fix",
+    "lint": "eslint lib/* __tests__/* --ext .ts --ext .tsx",
+    "lint:fix": "eslint lib/* __tests__/* --ext .ts --ext .tsx --fix",
     "build": "tsc",
     "prepare": "tsc",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release",
+    "typedoc": "typedoc lib/index.ts"
   },
   "repository": {
     "type": "git",
     "url": ""
   },
-  "keywords": [],
-  "author": "Jesse Wright <jesse.wright@anu.edu.au>",
+  "keywords": [
+    "SHACL",
+    "form",
+    "generator",
+    "React",
+    "linked",
+    "data",
+    "RDF",
+    "OWL"
+  ],
+  "author": "Jesse Wright <jesse.wright@anu.edu.au> (https://github.com/jeswr/)",
   "license": "MIT",
   "bugs": {
-    "url": ""
+    "url": "https://github.com/schimatos/shacl-form-react/issues"
   },
-  "homepage": "",
+  "homepage": "https://github.com/schimatos/shacl-form-react#readme",
   "devDependencies": {
+    "@comunica/actor-init-sparql": "^1.19.2",
+    "@types/deindent": "^0.1.0",
     "@types/jest": "^26.0.19",
+    "@types/react": "^17.0.2",
     "@typescript-eslint/eslint-plugin": "^4.12.0",
     "@typescript-eslint/parser": "^4.12.0",
     "eslint": "^7.17.0",
     "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-extra-rules": "^0.0.0-development",
     "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-unused-imports": "^1.1.0",
     "jest": "^26.6.3",
-    "jest-coverage-badges": "^1.1.2",
     "pre-commit": "^1.2.2",
     "semantic-release": "^17.3.1",
     "ts-jest": "^26.4.4",
-    "typescript": "^4.1.3"
+    "typedoc": "^0.20.25",
+    "typescript": "^4.1.5"
   },
   "jest": {
     "preset": "ts-jest",
     "collectCoverage": true,
+    "collectCoverageFrom": [
+      "lib/**"
+    ],
+    "coveragePathIgnorePatterns": [
+      "lib/types/*"
+    ],
+    "testPathPattern": "__tests__/**-test.tsx?",
     "coverageReporters": [
-      "json-summary", 
+      "json-summary",
       "text",
       "lcov"
     ],
@@ -81,5 +104,14 @@
         "prerelease": true
       }
     ]
+  },
+  "dependencies": {
+    "@jeswr/use-async-effect": "^1.0.0",
+    "@jeswr/use-state": "^1.0.2",
+    "copy-anything": "^2.0.3",
+    "deindent": "^0.1.0",
+    "rdf-object-proxy": "^1.0.0",
+    "rdf-string-ttl": "^1.1.0",
+    "react": "^17.0.1"
   }
 }

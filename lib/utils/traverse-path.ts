@@ -1,6 +1,6 @@
-import type { ProxiedResource } from 'rdf-object-proxy/dist';
+import type { AnyResource } from 'rdf-object-proxy/dist';
 
-function writeListPath(path: ProxiedResource<string>, joiner: string = '/') {
+function writeListPath(path: AnyResource, joiner: string = '/') {
   // @ts-ignore
   const mapped = path.list.map(pathToSparql);
   if (mapped.length === 0) {
@@ -12,7 +12,7 @@ function writeListPath(path: ProxiedResource<string>, joiner: string = '/') {
   }
 }
 
-export function pathToSparql(path: ProxiedResource<string>): string {
+export function pathToSparql(path: AnyResource): string {
   if (path.type === 'NamedNode') {
     return `<${path}>`;
   }

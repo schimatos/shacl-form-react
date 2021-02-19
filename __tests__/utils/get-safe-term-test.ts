@@ -10,24 +10,24 @@ describe('Testing error throwing behavior', () => {
     expect(() => getSafeTerm(undefined)).toThrow(
       new Error('Expected term to be BlankNode, NamedNode or Literal. Recieved: undefined'),
     );
-    it('Should throw error when term is undefined in getSafeData', () => {
-      expect(() => getSafeData({
-        term: undefined,
-        annotations: [quad(
-          namedNode('http://example.org#Jesse'),
-          namedNode('http://example.org#type'),
-          namedNode('http://example.org#Person'),
-        )],
-      })).toThrow(
-        new Error('Expected term to be BlankNode, NamedNode or Literal. Recieved: undefined'),
-      );
-      expect(() => getSafeData({
-        term: undefined,
-        annotations: [],
-      })).toThrow(
-        new Error('Expected term to be BlankNode, NamedNode or Literal. Recieved: undefined'),
-      );
-    });
+  });
+  it('Should throw error when term is undefined in getSafeData', () => {
+    expect(() => getSafeData({
+      term: undefined,
+      annotations: [quad(
+        namedNode('http://example.org#Jesse'),
+        namedNode('http://example.org#type'),
+        namedNode('http://example.org#Person'),
+      )],
+    })).toThrow(
+      new Error('Expected term to be BlankNode, NamedNode or Literal. Recieved: undefined'),
+    );
+    expect(() => getSafeData({
+      term: undefined,
+      annotations: [],
+    })).toThrow(
+      new Error('Expected term to be BlankNode, NamedNode or Literal. Recieved: undefined'),
+    );
   });
 });
 

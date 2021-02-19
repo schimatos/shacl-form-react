@@ -19,10 +19,10 @@ import type {
 import type { Data } from '../types/input';
 import { getCounts } from '../utils/property/get-counts';
 import { getStatus } from '../utils/property/get-status';
-import { pathToSparql } from '../utils';
+import { getSafePropertyEntries, pathToSparql } from '../utils';
 
 interface State {
-  fields: PropertyEntry[];
+  fields: PropertyEntry<NamedNode | BlankNode | Literal | undefined>[];
   deleted: PropertyEntry[];
 }
 
@@ -99,8 +99,21 @@ function toDeletion(
 ): { state: State; index: number } {
   const s = copy(state);
   const index = a.index ?? s.fields.length - 1;
-  if (s.fields[index].preloaded) {
-    s.deleted.push(s.fields[index]);
+  const field = s.fields[index];
+  if (field.preloaded) {
+    const { term } = field.data;
+    // TODO [FUTURE]: Enforce this assumption using types
+    if (term !== undefined) {
+      s.deleted.push({
+        ...field,
+        data: {
+          term,
+          annotations: field.data.annotations,
+        },
+      });
+    } else {
+      throw new Error('Should not be deleting undefined term');
+    }
     s.fields[index].preloaded = false;
   }
   return { state: s, index };
@@ -110,10 +123,10 @@ function toDeletion(
  * A function that updates the array of field entries in some way
  */
 type Updater = (
-  fields: PropertyEntry[],
+  fields: PropertyEntry<NamedNode | BlankNode | Literal | undefined>[],
   counts: Counts,
   status: Status
-) => PropertyEntry[];
+) => PropertyEntry<NamedNode | BlankNode | Literal | undefined>[];
 
 /**
  * Updates the qualified value fields by assigning fields
@@ -125,10 +138,10 @@ type Updater = (
  * @param status Validity status statistics
  */
 function enforceQualified(
-  fields: PropertyEntry[],
+  fields: PropertyEntry<NamedNode | BlankNode | Literal | undefined>[],
   counts: Counts,
   status: Status,
-): PropertyEntry[] {
+): PropertyEntry<NamedNode | BlankNode | Literal | undefined>[] {
   const fieldCopy = copy(fields);
   const diff = counts.qualified.min - status.qualified.valid;
   let corrected = 0;
@@ -155,10 +168,10 @@ function enforceQualified(
  * @param status Validity status statistics
  */
 function relaxQualified(
-  fields: PropertyEntry[],
+  fields: PropertyEntry<NamedNode | BlankNode | Literal | undefined>[],
   counts: Counts,
   status: Status,
-): PropertyEntry[] {
+): PropertyEntry<NamedNode | BlankNode | Literal | undefined>[] {
   const fieldCopy = copy(fields);
   // The number of unecessarily enforced qualified constraint fields
   let unnecessarilyEnforced = status.qualified.total - counts.qualified.min;
@@ -189,11 +202,11 @@ function addFieldsFactory(atLeastOne: boolean = true) {
    * @param status Validity status statistics
    */
   return function addFields(
-    fields: PropertyEntry[],
+    fields: PropertyEntry<NamedNode | BlankNode | Literal | undefined>[],
     counts: Counts,
     status: Status,
-  ): PropertyEntry[] {
-    let fieldCopy = copy(fields);
+  ): PropertyEntry<NamedNode | BlankNode | Literal | undefined>[] {
+    let fieldCopy: PropertyEntry<NamedNode | BlankNode | Literal | undefined>[] = copy(fields);
     const qualified = Math.max(
       counts.qualified.min - status.qualified.total,
       0,
@@ -222,7 +235,10 @@ function addFieldsFactory(atLeastOne: boolean = true) {
  * (order in array determines the order in which they are run)
  */
 function runFieldUpdatesFactory(updaters: Updater[]) {
-  return function runFieldUpdates(fields: PropertyEntry[], counts: Counts) {
+  return function runFieldUpdates(
+    fields: PropertyEntry<NamedNode | BlankNode | Literal | undefined>[],
+    counts: Counts,
+  ) {
     return updaters.reduce(
       (f, updater) => updater(f, counts, getStatus(f)),
       fields,
@@ -272,10 +288,10 @@ async function getValues(
  * @param fields The current state
  */
 function getPredefined(fields: State): PropertyEntry[] {
-  return [
+  return getSafePropertyEntries([
     ...fields.fields.filter((value) => value.preloaded),
     ...fields.deleted.filter((value) => value.preloaded),
-  ];
+  ]);
 }
 
 /**

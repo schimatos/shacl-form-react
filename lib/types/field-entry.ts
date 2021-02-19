@@ -1,3 +1,4 @@
+import type { Quad } from 'rdf-js';
 import type { AnyResource } from 'rdf-object-proxy';
 import type { ActorInitSparql } from '@comunica/actor-init-sparql';
 import type { Input } from './input';
@@ -11,7 +12,10 @@ export interface GroupEntry {
   parent: sh.NodeShape;
 }
 
-export interface FieldEntry<T, K extends AnyResource> {
+export interface FieldEntry<
+  T extends 'and' | 'or' | 'xone' | 'not' | 'property',
+  K extends AnyResource
+> {
   type: T;
   value: K;
   // To access all data required for drag/drop
@@ -67,7 +71,7 @@ export interface PassedProps {
   selectPanel?: boolean;
   panelDescription?: boolean;
   Input: Input;
-  validationEngine<T extends boolean>(shape: sh.PropertyShape, data: string, async: T = true):
+  validationEngine<T extends boolean>(shape: sh.PropertyShape, data: string, async: T):
     T extends true ? Promise<validationResult> : validationResult
 }
 

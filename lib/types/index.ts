@@ -1,4 +1,4 @@
-// export * from './field-entry';
+export * from './field-entry';
 export * as sh from './shacl';
 export * from './shacl-ext';
 export * from './field-entry';

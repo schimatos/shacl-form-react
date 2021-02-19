@@ -1,4 +1,7 @@
-import type { Data } from '../types/input';
+import type {
+  NamedNode, BlankNode, Literal, Term,
+} from 'rdf-js';
+import type { Data } from './input';
 
 /**
  * Field entry for a property value

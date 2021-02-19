@@ -1,7 +1,10 @@
+import type { NamedNode, BlankNode, Literal } from 'rdf-js';
 import type { Status, PropertyEntry } from '../../types';
 import { count } from '../count';
 
-export function getStatus(fields: PropertyEntry[]): Status {
+export function getStatus(
+  fields: PropertyEntry<NamedNode | BlankNode | Literal | undefined>[],
+): Status {
   const standard = {
     total: fields.length,
     valid: count(fields, (field) => field.valid),

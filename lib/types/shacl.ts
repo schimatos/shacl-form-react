@@ -1,4 +1,5 @@
 import type { AnyResource, ProxiedResource } from 'rdf-object-proxy';
+import type * as sh from './shacl';
 
 export type PropertyShape = AnyResource & {
   [Symbol.iterator](): Iterator<PropertyShape, any, undefined>;

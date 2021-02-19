@@ -1,11 +1,5 @@
 import type { ProxiedResource } from 'rdf-object-proxy/dist';
 
-export function traverse(path: ProxiedResource<string>, data: any) {
-  // const newData = await data[pathToSparql(path)];
-  // console.log('path is', pathToSparql(path), data, data[pathToSparql(path)])
-  return data[pathToSparql(path)];
-}
-
 function writeListPath(path: ProxiedResource<string>, joiner: string = '/') {
   // @ts-ignore
   const mapped = path.list.map(pathToSparql);

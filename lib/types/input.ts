@@ -1,5 +1,6 @@
+import type { ActorInitSparql } from '@comunica/actor-init-sparql';
 import type {
-  NamedNode, BlankNode, Literal, Quad,
+  NamedNode, BlankNode, Literal, Quad, Term,
 } from 'rdf-js';
 
 /**
@@ -20,7 +21,7 @@ export interface Data<T extends Term | undefined = NamedNode | BlankNode | Liter
 }
 
 export interface FieldProps {
-  props: Data;
+  props: Data<undefined | NamedNode | BlankNode | Literal>;
   onChange: (e: Data) => void;
   data: {
     queryEngine: ActorInitSparql;

@@ -24,9 +24,10 @@ export function isValid(field: FieldType, map: Record<string, boolean>): boolean
         ) === 1
       );
     case 'property':
-      return map[`${field.value}`];
+      return map[`${field.value}`] === true;
     case 'not':
-      return map[`${field.value}`];
+      // TODO [FUTURE]: Double check
+      return map[`${field.value}`] === true;
     case 'group':
       return field.fields.every((f) => isValid(f, map));
     default: {

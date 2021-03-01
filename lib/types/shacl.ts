@@ -35,7 +35,4 @@ export type xone = AnyResource & {
   group: sh.NodeGroup;
   [Symbol.iterator](): Iterator<xone, any, undefined>
 };
-export type not = AnyResource & {
-  group: sh.NodeGroup;
-  [Symbol.iterator](): Iterator<not, any, undefined>
-};
+export type not = sh.NodeShape | sh.PropertyShape;

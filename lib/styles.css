@@ -1,0 +1,27 @@
+/* This block of code places the labels *above* a form field entry */
+input, label {
+  display:block;
+};
+
+input:invalid {
+  background-color: pink;
+};
+
+.valid-true {
+  background-color: rgba(0, 128, 0, 0.481);
+};
+
+.valid-false {
+  background-color: rgba(128, 126, 0, 0.494);
+};
+
+legend {
+  margin:0;
+  font-size:18px !important;
+  width: fit-content !important;
+};
+
+fieldset {
+  padding: 0px 10px 10px 10px !important;
+  border: 1px solid !important;
+};

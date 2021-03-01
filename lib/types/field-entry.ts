@@ -41,38 +41,43 @@ export type FormChangeEvent = (e: {
   data: string;
 }) => void;
 
-export type OnChange = (value: {
+export interface PropertyData {
   property: string;
   valid: boolean;
   path: FieldType[];
   insert: Quad[];
   delete: Quad[];
-}) => void
+}
+
+export type OnChange = (value: PropertyData) => void
 
 interface validationResult {
   valid: boolean;
   message?: string;
 }
 
+export interface FormProps {
+  hidden: boolean;
+  draggable: boolean;
+  data?: any;
+  onFormChange: FormChangeEvent;
+  queryEngine?: ActorInitSparql;
+  pathFactory?: any;
+  selectPanel?: boolean;
+  panelDescription?: boolean;
+  Input: Input;
+  validationEngine?<T extends boolean>(shape: sh.PropertyShape, data: string, async: T):
+    T extends true ? Promise<validationResult> : validationResult
+}
+
 /**
  * Props that are passed through *all*
  * form components
  */
-export interface PassedProps {
+export interface PassedProps extends FormProps {
   path: FieldType[];
-  hidden: boolean;
-  draggable: boolean;
-  data: any;
-  onFormChange: FormChangeEvent;
-  onChange: OnChange;
   validities: Record<string, boolean>;
-  queryEngine: ActorInitSparql;
-  pathFactory: any;
-  selectPanel?: boolean;
-  panelDescription?: boolean;
-  Input: Input;
-  validationEngine<T extends boolean>(shape: sh.PropertyShape, data: string, async: T):
-    T extends true ? Promise<validationResult> : validationResult
+  onChange: OnChange;
 }
 
 export interface RenderFieldsProps extends PassedProps {

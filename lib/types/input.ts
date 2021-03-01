@@ -22,10 +22,10 @@ export interface Data<T extends Term | undefined = NamedNode | BlankNode | Liter
 
 export interface FieldProps {
   props: Data<undefined | NamedNode | BlankNode | Literal>;
-  onChange: (e: Data) => void;
+  onChange: (e: Data<undefined | NamedNode | BlankNode | Literal>) => void;
   data: {
-    queryEngine: ActorInitSparql;
-    pathFactory: any;
+    queryEngine?: ActorInitSparql;
+    pathFactory?: any;
   };
   constraints: {
     /**
@@ -37,6 +37,7 @@ export interface FieldProps {
      */
     combinations?: { [key in string]?: Record<string, any> }[];
   }
+  label?: string;
 }
 
 export type Input = (props: FieldProps) => JSX.Element

@@ -28,4 +28,8 @@ export interface PropertyEntry<T extends Term | undefined = NamedNode | BlankNod
    * (i.e. it already exists within the graph)
    */
   preloaded: boolean;
+  /**
+   * Used as a key for rendering
+   */
+  key: number;
 }

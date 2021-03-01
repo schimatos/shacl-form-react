@@ -1,6 +1,6 @@
 import React from 'react';
 import type { FieldType } from '../types';
-import { getNameField, isValid } from '../utils';
+import { getLabel, isValid } from '../utils';
 
 function getClassName(field: FieldType, validity: Record<string, boolean>): string {
   return `field-${field.type} valid-${isValid(field, validity)} severity-${
@@ -19,10 +19,10 @@ export function Fieldset({
   validities: Record<string, boolean>;
   hidden: boolean;
 }): JSX.Element {
-  const name = getNameField(field);
+  const name = getLabel(field);
   return (
     <fieldset
-      id={`${field.value}`}
+      // id={`${field.value}`}
       title={name}
       name={name}
       hidden={hidden}

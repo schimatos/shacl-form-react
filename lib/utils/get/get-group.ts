@@ -1,3 +1,4 @@
+import { namedNode } from '@rdfjs/data-model';
 import type { sh, LogicalCollection } from '../../types';
 
 export function getGroupProperty(property: sh.PropertyShape): sh.NodeGroup | undefined {
@@ -37,7 +38,15 @@ export function getGroupsNode(node: sh.NodeShape): sh.NodeGroup[] {
 
 export function getGroupsCollection(collection: LogicalCollection): sh.NodeGroup[] {
   // TODO [FUTURE]: REMOVE TYPE CASTING HERE - Perhaps edit the shacl-shacl constraint
-  return collection.list.flatMap((node: sh.Shape) => getGroupsNode(node as sh.NodeShape));
+  return collection.list.flatMap((node: sh.Shape) => {
+    // TODO: Do properly with on2ts
+    if (node.isA(namedNode('http://www.w3.org/ns/shacl#NodeShape'))) {
+      return getGroupsNode(node as sh.NodeShape);
+    } if (node.isA(namedNode('http://www.w3.org/ns/shacl#PropertyShape'))) {
+      return getGroupProperty(node as sh.PropertyShape) ?? [];
+    }
+    throw new Error('Invalid node: expected node shape or property shape');
+  });
 }
 
 export function getGroupCollection(collection: LogicalCollection): sh.NodeGroup | undefined {

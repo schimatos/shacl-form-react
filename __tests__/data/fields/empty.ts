@@ -1,5 +1,5 @@
 import { namedNode } from '@rdfjs/data-model';
-import type { FieldEntry, sh } from '../../../lib';
+import type { FieldEntry, sh } from '../../../lib/types';
 
 // TODO [FUTURE]: REMOVE TYPE CASTIN IN TEST
 const emptyListed = {

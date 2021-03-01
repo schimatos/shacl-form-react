@@ -31,5 +31,9 @@ export interface Status {
     total: number;
     valid: number;
   }
+  unQualified: {
+    total: number;
+    valid: number;
+  }
   valid: boolean;
 }

@@ -5,7 +5,8 @@
       "node": true
   },
   "extends": [
-      "airbnb-base"
+      "airbnb-base",
+      "plugin:css-modules/recommended"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -18,8 +19,10 @@
   "plugins": [
     "@typescript-eslint",
     "extra-rules",
-    "unused-imports"
+    "unused-imports",
+    "css-modules"
   ],
+  "ignorePatterns": ["*.css"],
   "rules": {
     "import/prefer-default-export": "off",
     "import/no-unresolved": "off",
@@ -34,6 +37,8 @@
     "class-methods-use-this": "off",
     "extra-rules/no-commented-out-code": "warn",
     "@typescript-eslint/no-unused-vars": ["error"],
-    "camelcase": "off"
+    "camelcase": "off",
+    "css-modules/no-unused-class": [2, { "camelCase": true }],
+    "css-modules/no-undef-class": [2, { "camelCase": true }]
   }
 }

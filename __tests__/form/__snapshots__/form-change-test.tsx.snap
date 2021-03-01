@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing consistency rendering of forms Correctly renders a basic form 1`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="ssn"
+    title="ssn"
+  >
+    <legend>
+      ssn
+    </legend>
+    <input
+      aria-label="ssn"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="worksFor"
+    title="worksFor"
+  >
+    <legend>
+      worksFor
+    </legend>
+    <input
+      aria-label="worksFor"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="employee"
+    title="employee"
+  >
+    <legend>
+      employee
+    </legend>
+    <input
+      aria-label="employee"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <button>
+    Submit
+  </button>
+</form>
+`;

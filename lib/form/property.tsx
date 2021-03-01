@@ -19,12 +19,17 @@ import type {
 import type { Data } from '../types/input';
 import { getCounts } from '../utils/property/get-counts';
 import { getStatus } from '../utils/property/get-status';
-import { getSafePropertyEntries, pathToSparql } from '../utils';
+import { getLabel, getSafePropertyEntries, pathToSparql } from '../utils';
+import { Fieldset } from './fieldset';
 
 interface State {
   fields: PropertyEntry<NamedNode | BlankNode | Literal | undefined>[];
   deleted: PropertyEntry[];
+  counts: Counts;
+  key: number;
 }
+
+// TODO: FIX UPDATE BEING INTERNAL AND EXTERNAL
 
 /**
  * Actions which are caused by changes internal to
@@ -43,7 +48,7 @@ type InternalAction =
   | {
       type: 'update';
       index: number;
-      data: Data;
+      data: Data<BlankNode | Literal | NamedNode | undefined>;
     };
 
 /**
@@ -62,7 +67,7 @@ type ExternalAction =
   | {
       type: 'update';
       index: number;
-      data: Data;
+      data: Data<BlankNode | Literal | NamedNode | undefined>;
     }
   | {
       type: 'dataChange';
@@ -71,7 +76,8 @@ type ExternalAction =
 
 type Action = InternalAction | ExternalAction;
 
-function createEmpty(
+export function createEmpty(
+  key: number,
   qualifiedEnforced = false,
 ): PropertyEntry<undefined | NamedNode | BlankNode | Literal> {
   return {
@@ -83,6 +89,25 @@ function createEmpty(
       term: undefined,
       annotations: [],
     },
+    key,
+  };
+}
+
+function createLoaded(
+  key: number,
+  term: undefined | NamedNode | BlankNode | Literal = undefined,
+  preloaded = true,
+): PropertyEntry<undefined | NamedNode | BlankNode | Literal> {
+  return {
+    valid: false,
+    qualifiedValid: false,
+    qualifiedEnforced: false,
+    preloaded,
+    data: {
+      term,
+      annotations: [],
+    },
+    key,
   };
 }
 
@@ -123,10 +148,9 @@ function toDeletion(
  * A function that updates the array of field entries in some way
  */
 type Updater = (
-  fields: PropertyEntry<NamedNode | BlankNode | Literal | undefined>[],
-  counts: Counts,
+  state: State,
   status: Status
-) => PropertyEntry<NamedNode | BlankNode | Literal | undefined>[];
+) => State;
 
 /**
  * Updates the qualified value fields by assigning fields
@@ -137,13 +161,12 @@ type Updater = (
  * @param counts The minCount/maxCount data
  * @param status Validity status statistics
  */
-function enforceQualified(
-  fields: PropertyEntry<NamedNode | BlankNode | Literal | undefined>[],
-  counts: Counts,
+export function enforceQualified(
+  state: State,
   status: Status,
-): PropertyEntry<NamedNode | BlankNode | Literal | undefined>[] {
-  const fieldCopy = copy(fields);
-  const diff = counts.qualified.min - status.qualified.valid;
+): State {
+  const fieldCopy = copy(state.fields);
+  const diff = state.counts.qualified.min - status.qualified.valid;
   let corrected = 0;
   for (const field of fieldCopy) {
     if (diff < corrected) {
@@ -154,7 +177,7 @@ function enforceQualified(
       field.qualifiedEnforced = true;
     }
   }
-  return fieldCopy;
+  return { ...state, fields: fieldCopy };
 }
 
 /**
@@ -167,14 +190,13 @@ function enforceQualified(
  * @param counts The minCount/maxCount data
  * @param status Validity status statistics
  */
-function relaxQualified(
-  fields: PropertyEntry<NamedNode | BlankNode | Literal | undefined>[],
-  counts: Counts,
+export function relaxQualified(
+  state: State,
   status: Status,
-): PropertyEntry<NamedNode | BlankNode | Literal | undefined>[] {
-  const fieldCopy = copy(fields);
+): State {
+  const fieldCopy = copy(state.fields);
   // The number of unecessarily enforced qualified constraint fields
-  let unnecessarilyEnforced = status.qualified.total - counts.qualified.min;
+  let unnecessarilyEnforced = status.qualified.total - state.counts.qualified.min;
   for (
     let i = fieldCopy.length - 1;
     i >= 0 && unnecessarilyEnforced > 0;
@@ -186,7 +208,7 @@ function relaxQualified(
       unnecessarilyEnforced -= 1;
     }
   }
-  return fieldCopy;
+  return { ...state, fields: fieldCopy };
 }
 
 /**
@@ -194,7 +216,7 @@ function relaxQualified(
  * least one field even if the minCount is zero
  * (this is ignored if the maxCount is also zero)
  */
-function addFieldsFactory(atLeastOne: boolean = true) {
+export function addFieldsFactory(atLeastOne: boolean = true) {
   /**
    * Adds fields to make up the minCount of the field
    * @param fields The fields to be updated
@@ -202,30 +224,38 @@ function addFieldsFactory(atLeastOne: boolean = true) {
    * @param status Validity status statistics
    */
   return function addFields(
-    fields: PropertyEntry<NamedNode | BlankNode | Literal | undefined>[],
-    counts: Counts,
+    state: State,
     status: Status,
-  ): PropertyEntry<NamedNode | BlankNode | Literal | undefined>[] {
-    let fieldCopy: PropertyEntry<NamedNode | BlankNode | Literal | undefined>[] = copy(fields);
+  ): State {
+    let fieldCopy: PropertyEntry<
+      NamedNode | BlankNode | Literal | undefined>[] = copy(state.fields);
     const qualified = Math.max(
-      counts.qualified.min - status.qualified.total,
+      state.counts.qualified.min - status.qualified.total,
       0,
     );
     const unQualified = Math.max(
-      counts.unQualified.min - (status.standard.total - status.qualified.total),
+      state.counts.unQualified.min - (status.standard.total - status.qualified.total),
       0,
     );
     fieldCopy = [
       ...fieldCopy,
       // DO NOT USE .fill HERE AS THIS WILL CAUSE THE SAME OBJECT
       // TO BE REFERENCED BY MULTIPLE ENTRIES
-      ...Array(qualified).map(() => createEmpty(true)),
-      ...Array(unQualified).map(() => createEmpty()),
+      ...Array(qualified).fill(undefined).map((_, i) => createEmpty(state.key + i, true)),
+      ...Array(unQualified).fill(undefined).map((_, i) => createEmpty(state.key + qualified + i)),
     ];
-    if (fieldCopy.length === 0 && atLeastOne && counts.count.max > 0) {
-      return [createEmpty()];
+    if (fieldCopy.length === 0 && atLeastOne && state.counts.count.max > 0) {
+      return {
+        ...state,
+        fields: [createEmpty(state.key)],
+        key: state.key + 1,
+      };
     }
-    return fieldCopy;
+    return {
+      ...state,
+      fields: fieldCopy,
+      key: state.key + qualified + unQualified,
+    };
   };
 }
 
@@ -236,12 +266,11 @@ function addFieldsFactory(atLeastOne: boolean = true) {
  */
 function runFieldUpdatesFactory(updaters: Updater[]) {
   return function runFieldUpdates(
-    fields: PropertyEntry<NamedNode | BlankNode | Literal | undefined>[],
-    counts: Counts,
+    state: State,
   ) {
     return updaters.reduce(
-      (f, updater) => updater(f, counts, getStatus(f)),
-      fields,
+      (state, updater) => updater(state, getStatus(state.fields)),
+      state,
     );
   };
 }
@@ -259,8 +288,11 @@ interface ValueData {
 async function getValues(
   data: any,
   path: AnyResource,
-  queryEngine: ActorInitSparql,
+  queryEngine?: ActorInitSparql,
 ): Promise<ValueData[]> {
+  if (!data) {
+    return [];
+  }
   return data[pathToSparql(path)].toArray(async (value: any) => {
     // Long term this is probably better solved with a SPARQL* annotation
     const query = deindent`
@@ -270,7 +302,11 @@ async function getValues(
           }
         }`;
 
-    const result: IQueryResult = await queryEngine.query(query);
+    const result: IQueryResult = await queryEngine?.query(query) ?? {
+      type: 'boolean',
+      booleanResult: Promise.resolve(false),
+    };
+
     if (result.type !== 'boolean') {
       throw new Error('Boolean result expected');
     }
@@ -316,49 +352,44 @@ function isDataValueChange(state: State, values: ValueData[]): boolean {
   return false;
 }
 
-const runFieldsUpdates = runFieldUpdatesFactory([
+export const runStateUpdates = runFieldUpdatesFactory([
   enforceQualified,
   relaxQualified,
   addFieldsFactory(true),
 ]);
 
-/**
- * Convenience function that runs
- * runFieldsUpdate in the fields
- */
-function runStateUpdates(state: State, counts: Counts): State {
-  return {
-    fields: runFieldsUpdates(state.fields, counts),
-    deleted: state.deleted,
-  };
+export function init({ values, field }: {values: ValueData[], field: AtomFieldEntry}) {
+  const counts = getCounts(field);
+  return runStateUpdates({
+    fields: values.map((value, i) => createLoaded(i, value.value, !value.temporary)),
+    deleted: [],
+    counts,
+    key: values.length,
+  });
 }
 
 function reducerFactory(field: AtomFieldEntry) {
-  // const not = field.type === 'not';
-  const counts = getCounts(field);
-
   return function reducer(s: State, a: Action): State {
     switch (a.type) {
       case 'delete': {
         const { state, index } = toDeletion(s, a);
         return runStateUpdates({
+          ...state,
           fields: [
             ...state.fields.slice(0, index),
             ...state.fields.slice(index + 1),
           ],
-          deleted: state.deleted,
-        }, counts);
+        });
       }
       case 'unlock': {
-        const { state } = toDeletion(s, a);
-        return runStateUpdates(state, counts);
+        return runStateUpdates(toDeletion(s, a).state);
       }
       case 'update': {
         return s;
       }
       case 'dataChange': {
         if (isDataValueChange(s, a.values)) {
-          return s;
+          return init({ values: a.values, field });
         }
         return s;
       }
@@ -371,27 +402,29 @@ function reducerFactory(field: AtomFieldEntry) {
 }
 
 export function Property({
-  field,
   data,
   Input,
   ...props
 }: RenderFieldProps<AtomFieldEntry>) {
-  const [{ fields }, dispatch] = useReducer(reducerFactory(field), {
-    fields: [],
-    deleted: [],
-  });
+  const label = getLabel(props.field);
+  const [state, dispatch] = useReducer(
+    reducerFactory(props.field), { values: [], field: props.field }, init,
+  );
   useAsyncEffect(async () => {
-    const values = await getValues(data, field.value.path, props.queryEngine);
+    const values = await getValues(data, props.field.value.path, props.queryEngine);
     dispatch({
       type: 'dataChange',
       values,
     });
   }, [data]);
+  const { fields } = state;
+  // console.log(state, props.field, init({ values: [], field: props.field }));
   return (
-    <>
+    <Fieldset {...props}>
       {fields.map((f, index) => (
         <Input
-          props={f.data}
+        key={f.key}
+        props={f.data}
           onChange={(data) => {
             dispatch({ type: 'update', index, data });
           }}
@@ -404,8 +437,9 @@ export function Property({
               /* TODO: REINTRODUCE CONSTRAINTS HERE */
             }
           }
+          label={label}
         />
       ))}
-    </>
+    </Fieldset>
   );
 }

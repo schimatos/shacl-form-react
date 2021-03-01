@@ -3,3 +3,4 @@ export * from './field';
 export * from './fields';
 export * from './fieldset';
 export * from './group';
+export * from './form';

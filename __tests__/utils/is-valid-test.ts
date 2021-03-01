@@ -1,4 +1,4 @@
-import { isValid } from '../../lib';
+import { isValid } from '../../lib/utils';
 import {
   emptyAnd, emptyOr, emptyProperty, emptyXone,
 } from '../data';

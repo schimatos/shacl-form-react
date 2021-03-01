@@ -1,3 +1,4 @@
+import { namedNode } from '@rdfjs/data-model';
 import type { AnyResource } from 'rdf-object-proxy';
 import type {
   FieldType, GroupEntry, LogicalCollection, sh,
@@ -39,7 +40,15 @@ export function getOrderProperty(property: sh.PropertyShape): number {
 
 export function getOrderCollection(collection: LogicalCollection): number {
   // TODO [FUTURE]: REMOVE TYPE CASTING
-  return Math.min(...collection.list.flatMap((node) => getOrderNode(node as sh.NodeShape)));
+  return Math.min(...collection.list.flatMap((node: sh.Shape) => {
+    // TODO: Do properly with on2ts
+    if (node.isA(namedNode('http://www.w3.org/ns/shacl#NodeShape'))) {
+      return getOrderNode(node as sh.NodeShape);
+    } if (node.isA(namedNode('http://www.w3.org/ns/shacl#PropertyShape'))) {
+      return getOrderProperty(node as sh.PropertyShape) ?? [];
+    }
+    throw new Error('Invalid node: expected node shape or property shape');
+  }));
 }
 
 export function getOrderGroup(field: GroupEntry) {

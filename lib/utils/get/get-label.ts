@@ -17,7 +17,7 @@ function getName(resource: AnyResource, fragmentOnly = false): string | undefine
 //   return names.length > 1 ? `(${names.join(' ')})` : names.join(' ')
 // }
 
-export function getNameField(field: FieldType): string {
+export function getLabel(field: FieldType): string {
   const fieldName = getName(field.value.name)
     ?? getName(field.value.label)
     ?? getName(field.value.path.label)
@@ -37,16 +37,18 @@ export function getNameField(field: FieldType): string {
     //   return;
     case 'and':
       return field.value.list.map(
-        (x) => `(${getFields(x as sh.NodeShape).map(getNameField).join(' ')})`,
-      ).join(' & ');
+        // TODO: FIX - Type casting here is incorrect. Property shapes
+        // *are* allowed here
+        (x) => `(${getFields(x as sh.NodeShape).map(getLabel).join(' ')})`,
+      ).join(' AND ');
     case 'or':
       return field.value.list.map(
-        (x) => `(${getFields(x as sh.NodeShape).map(getNameField).join(' ')})`,
-      ).join(' || ');
+        (x) => `(${getFields(x as sh.NodeShape).map(getLabel).join(' ')})`,
+      ).join(' OR ');
     case 'xone':
       return field.value.list.map(
-        (x) => `(${getFields(x as sh.NodeShape).map(getNameField).join(' ')})`,
-      ).join(' | ');
+        (x) => `(${getFields(x as sh.NodeShape).map(getLabel).join(' ')})`,
+      ).join(' XONE ');
     // TODO: Display this better
     default: return pathToSparql(field.value.path);
   }

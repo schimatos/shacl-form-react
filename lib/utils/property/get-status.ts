@@ -11,11 +11,16 @@ export function getStatus(
   };
   const qualified = {
     total: count(fields, (field) => field.qualifiedEnforced),
-    valid: count(fields, (field) => field.qualifiedEnforced && field.qualifiedValid),
+    // TODO: Double check last && condition
+    valid: count(fields, (field) => field.qualifiedEnforced && field.qualifiedValid && field.valid),
   };
   return {
     standard,
     qualified,
+    unQualified: {
+      total: standard.total - qualified.total,
+      valid: standard.valid - qualified.valid,
+    },
     valid: standard.total === standard.valid && qualified.total === qualified.valid,
   };
 }

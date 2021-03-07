@@ -40,7 +40,7 @@ export function getOrderProperty(property: sh.PropertyShape): number {
 
 export function getOrderCollection(collection: LogicalCollection): number {
   // TODO [FUTURE]: REMOVE TYPE CASTING
-  return Math.min(...collection.list.flatMap((node: sh.Shape) => {
+  return Math.min(...([] as number[]).concat(...collection.list.map((node: sh.Shape) => {
     // TODO: Do properly with on2ts
     if (node.isA(namedNode('http://www.w3.org/ns/shacl#NodeShape'))) {
       return getOrderNode(node as sh.NodeShape);
@@ -60,7 +60,7 @@ export function getOrderCollection(collection: LogicalCollection): number {
     //   JSON.stringify(node.properties['http://www.w3.org/1999/02/22-rdf-syntax-ns#type'])
     // }`,
     //     );
-  }));
+  })));
 }
 
 export function getOrderGroup(field: GroupEntry) {

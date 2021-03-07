@@ -38,7 +38,7 @@ export function getGroupsNode(node: sh.NodeShape): sh.NodeGroup[] {
 
 export function getGroupsCollection(collection: LogicalCollection): sh.NodeGroup[] {
   // TODO [FUTURE]: REMOVE TYPE CASTING HERE - Perhaps edit the shacl-shacl constraint
-  return collection.list.flatMap((node: sh.Shape) => {
+  return ([] as sh.NodeGroup[]).concat(...collection.list.map((node: sh.Shape) => {
     // TODO: Do properly with on2ts
     if (node.isA(namedNode('http://www.w3.org/ns/shacl#NodeShape'))) {
       return getGroupsNode(node as sh.NodeShape);
@@ -57,7 +57,7 @@ export function getGroupsCollection(collection: LogicalCollection): sh.NodeGroup
     //   JSON.stringify(node.properties['http://www.w3.org/1999/02/22-rdf-syntax-ns#type'])
     // }`,
     //     );
-  });
+  }));
 }
 
 export function getGroupCollection(collection: LogicalCollection): sh.NodeGroup | undefined {

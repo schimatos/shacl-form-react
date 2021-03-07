@@ -1,4 +1,4 @@
-import type { sh } from '../types';
+// import type { sh } from '../types';
 
 /**
  * Expands a single path into a nested shape
@@ -19,4 +19,3 @@ import type { sh } from '../types';
 // Logic of this module
 // sh:path ( a b c d )
 // minCount x; maxCount y;
-

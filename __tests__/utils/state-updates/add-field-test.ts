@@ -2,7 +2,7 @@ import { namedNode, quad } from '@rdfjs/data-model';
 import type { NamedNode, BlankNode, Literal } from 'rdf-js';
 import { addFieldsFactory } from '../../../lib/form/property';
 import type { PropertyEntry, Status } from '../../../lib/types';
-import { getCounts, getStatus } from '../../../lib/utils';
+import { getStatus } from '../../../lib/utils';
 
 const emptyState = (
   min = 0,

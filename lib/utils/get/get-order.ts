@@ -1,5 +1,4 @@
 import { namedNode } from '@rdfjs/data-model';
-import deindent from 'deindent';
 import type { AnyResource } from 'rdf-object-proxy';
 import type {
   FieldType, GroupEntry, LogicalCollection, sh,
@@ -55,12 +54,12 @@ export function getOrderCollection(collection: LogicalCollection): number {
       return getOrderNode(node as sh.NodeShape);
     }
     // return getOrderProperty(node as sh.PropertyShape) ?? [];
-    throw new Error(
-      deindent`Invalid node: expected node shape or property shape.
-      Instead instance of ${
-  JSON.stringify(node.properties['http://www.w3.org/1999/02/22-rdf-syntax-ns#type'])
-}`,
-    );
+    //     throw new Error(
+    //       deindent`Invalid node: expected node shape or property shape.
+    //       Instead instance of ${
+    //   JSON.stringify(node.properties['http://www.w3.org/1999/02/22-rdf-syntax-ns#type'])
+    // }`,
+    //     );
   }));
 }
 

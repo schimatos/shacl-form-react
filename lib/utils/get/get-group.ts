@@ -1,4 +1,5 @@
 import { namedNode } from '@rdfjs/data-model';
+import deindent from 'deindent';
 import type { sh, LogicalCollection } from '../../types';
 
 export function getGroupProperty(property: sh.PropertyShape): sh.NodeGroup | undefined {
@@ -45,7 +46,18 @@ export function getGroupsCollection(collection: LogicalCollection): sh.NodeGroup
     } if (node.isA(namedNode('http://www.w3.org/ns/shacl#PropertyShape'))) {
       return getGroupProperty(node as sh.PropertyShape) ?? [];
     }
-    throw new Error('Invalid node: expected node shape or property shape');
+    // TODO [FUTURE]: Remove this catch case when upstream inferencing is working
+    try {
+      return getGroupProperty(node as sh.PropertyShape) ?? [];
+    } catch (e) {
+      return getGroupsNode(node as sh.NodeShape);
+    }
+    throw new Error(
+      deindent`Invalid node: expected node shape or property shape.
+      Instead instance of ${
+  JSON.stringify(node.properties['http://www.w3.org/1999/02/22-rdf-syntax-ns#type'])
+}`,
+    );
   });
 }
 

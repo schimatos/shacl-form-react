@@ -408,7 +408,9 @@ export function Property({
 }: RenderFieldProps<AtomFieldEntry>) {
   const label = getLabel(props.field);
   const [state, dispatch] = useReducer(
-    reducerFactory(props.field), { values: [], field: props.field }, init,
+    reducerFactory(props.field),
+    { values: [], field: props.field },
+    init,
   );
   useAsyncEffect(async () => {
     const values = await getValues(data, props.field.value.path, props.queryEngine);
@@ -418,7 +420,6 @@ export function Property({
     });
   }, [data]);
   const { fields } = state;
-  // console.log(state, props.field, init({ values: [], field: props.field }));
   return (
     <Fieldset {...props}>
       {fields.map((f, index) => (

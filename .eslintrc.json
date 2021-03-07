@@ -6,6 +6,7 @@
   },
   "extends": [
       "airbnb-base",
+      "plugin:react-hooks/recommended",
       "plugin:css-modules/recommended"
   ],
   "parser": "@typescript-eslint/parser",

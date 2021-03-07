@@ -1,24 +1,30 @@
 import {
-  ProxiedNodeShapes, ProxiedNodeShapesMapPromise, NodeShapesMapPromise,
+  InferencedProxiedNodeShapes,
+  InferencedProxiedNodeShapesMapPromise,
+  InferencedNodeShapesMapPromise,
 } from 'shacl-test-as-object';
 import { RdfObjectProxy } from 'rdf-object-proxy';
 import * as utils from '../../../lib/utils';
 import type { sh, FieldType } from '../../../lib/types';
 import 'jest-extended';
+import { unsupportedShapes } from '../../data';
 
 const PersonShape = 'http://datashapes.org/sh/tests/core/complex/personexample.test#PersonShape';
 
 describe('Testing with the SHACL test suite', () => {
   it('Should *run* on every shape in the shacl test suite', async () => {
-    const shapes = await ProxiedNodeShapes;
+    const shapes = await InferencedProxiedNodeShapes;
     for (const shape of shapes) {
-      expect(() => utils.getFields(shape as sh.NodeShape)).not.toThrowError();
+      if (!unsupportedShapes.includes(`${shape}`)) {
+        // console.log(`${shape}`);
+        expect(() => utils.getFields(shape as sh.NodeShape)).not.toThrowError();
+      }
     }
     expect.hasAssertions();
-  });
+  }, 30000);
   it('Should correctly extract fields for PersonShape', async () => {
-    const ProxiedNodeShapesMap = await ProxiedNodeShapesMapPromise;
-    const NodeShapesMap = await NodeShapesMapPromise;
+    const ProxiedNodeShapesMap = await InferencedProxiedNodeShapesMapPromise;
+    const NodeShapesMap = await InferencedNodeShapesMapPromise;
     const shape = ProxiedNodeShapesMap[PersonShape] as sh.NodeShape;
     const fields = utils.getFields(shape);
     expect(fields).toBeInstanceOf(Array);

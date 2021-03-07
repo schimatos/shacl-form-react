@@ -2,6 +2,7 @@ import React, { useReducer } from 'react';
 import type { NamedNode, BlankNode, Literal } from 'rdf-js';
 import { copy } from 'copy-anything';
 import type { AnyResource } from 'rdf-object-proxy';
+import type { Resource } from 'rdf-object';
 import { termToString } from 'rdf-string-ttl';
 import deindent from 'deindent';
 import type {
@@ -435,7 +436,7 @@ export function Property({
           }}
           constraints={
             {
-              /* TODO: REINTRODUCE CONSTRAINTS HERE */
+              restrictions: getRestrictions(props.field.value.property),
             }
           }
           label={label}
@@ -443,4 +444,15 @@ export function Property({
       ))}
     </Fieldset>
   );
+}
+
+// TODO [FUTURE]: Preprocess this fully (flags should be combined with pattern etc.)
+function getRestrictions(property: Record<string, Resource>) {
+  const restrictions: Record<string, any> = {};
+  for (const p in property) {
+    if (property[p].term.termType === 'Literal') {
+      restrictions[/[a-z]+$/i.exec(p)?.[0] ?? ''] = property[p].term.value;
+    }
+  }
+  return restrictions;
 }

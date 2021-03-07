@@ -19,7 +19,6 @@ export function MyApp() {
   return <SHACLForm
       shacl={shacl}
       data={data}
-
     />
 }
 ```

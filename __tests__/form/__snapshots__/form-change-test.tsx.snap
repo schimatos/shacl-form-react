@@ -1,0 +1,1830 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing consistency rendering of forms Correctly renders a basic form 1`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="ssn"
+    title="ssn"
+  >
+    <legend>
+      ssn
+    </legend>
+    <input
+      aria-label="ssn"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="worksFor"
+    title="worksFor"
+  >
+    <legend>
+      worksFor
+    </legend>
+    <input
+      aria-label="worksFor"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="employee"
+    title="employee"
+  >
+    <legend>
+      employee
+    </legend>
+    <input
+      aria-label="employee"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 1`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="ssn"
+    title="ssn"
+  >
+    <legend>
+      ssn
+    </legend>
+    <input
+      aria-label="ssn"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="worksFor"
+    title="worksFor"
+  >
+    <legend>
+      worksFor
+    </legend>
+    <input
+      aria-label="worksFor"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="employee"
+    title="employee"
+  >
+    <legend>
+      employee
+    </legend>
+    <input
+      aria-label="employee"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 2`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="property"
+    title="property"
+  >
+    <legend>
+      property
+    </legend>
+    <input
+      aria-label="property"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 3`] = `
+<form
+  onSubmit={[Function]}
+>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 4`] = `
+<form
+  onSubmit={[Function]}
+>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 5`] = `
+<form
+  onSubmit={[Function]}
+>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 6`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="field-and valid-false severity-undefined"
+    hidden={false}
+    name="(property) AND (property)"
+    title="(property) AND (property)"
+  >
+    <legend>
+      (property) AND (property)
+    </legend>
+    
+    <fieldset
+      className="field-property valid-false severity-undefined"
+      hidden={false}
+      name="property"
+      title="property"
+    >
+      <legend>
+        property
+      </legend>
+      <input
+        aria-label="property"
+        onChange={[Function]}
+      />
+    </fieldset>
+    <fieldset
+      className="field-property valid-false severity-undefined"
+      hidden={false}
+      name="property"
+      title="property"
+    >
+      <legend>
+        property
+      </legend>
+      <input
+        aria-label="property"
+        onChange={[Function]}
+      />
+    </fieldset>
+  </fieldset>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 7`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="property"
+    title="property"
+  >
+    <legend>
+      property
+    </legend>
+    <input
+      aria-label="property"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 8`] = `
+<form
+  onSubmit={[Function]}
+>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 9`] = `
+<form
+  onSubmit={[Function]}
+>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 10`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="someProperty"
+    title="someProperty"
+  >
+    <legend>
+      someProperty
+    </legend>
+    <input
+      aria-label="someProperty"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 11`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="someProperty"
+    title="someProperty"
+  >
+    <legend>
+      someProperty
+    </legend>
+    <input
+      aria-label="someProperty"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 12`] = `
+<form
+  onSubmit={[Function]}
+>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 13`] = `
+<form
+  onSubmit={[Function]}
+>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 14`] = `
+<form
+  onSubmit={[Function]}
+>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 15`] = `
+<form
+  onSubmit={[Function]}
+>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 16`] = `
+<form
+  onSubmit={[Function]}
+>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 17`] = `
+<form
+  onSubmit={[Function]}
+>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 18`] = `
+<form
+  onSubmit={[Function]}
+>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 19`] = `
+<form
+  onSubmit={[Function]}
+>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 20`] = `
+<form
+  onSubmit={[Function]}
+>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 21`] = `
+<form
+  onSubmit={[Function]}
+>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 22`] = `
+<form
+  onSubmit={[Function]}
+>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 23`] = `
+<form
+  onSubmit={[Function]}
+>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 24`] = `
+<form
+  onSubmit={[Function]}
+>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 25`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="property"
+    title="property"
+  >
+    <legend>
+      property
+    </legend>
+    <input
+      aria-label="property"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 26`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="property"
+    title="property"
+  >
+    <legend>
+      property
+    </legend>
+    <input
+      aria-label="property"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 27`] = `
+<form
+  onSubmit={[Function]}
+>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 28`] = `
+<form
+  onSubmit={[Function]}
+>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 29`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="field-xone valid-false severity-undefined"
+    hidden={false}
+    name="(fullName) XONE (firstName lastName)"
+    title="(fullName) XONE (firstName lastName)"
+  >
+    <legend>
+      (fullName) XONE (firstName lastName)
+    </legend>
+    <select
+      aria-label="Field selection"
+      id="n3-1008-select"
+      name="select (fullName) XONE (firstName lastName)"
+      onChange={[Function]}
+      value="n3-1009"
+    >
+      <option
+        value="n3-1009"
+      >
+        ❌
+        fullName
+      </option>
+      <option
+        value="n3-1012"
+      >
+        ❌
+        firstNamelastName
+      </option>
+      <option
+        value="all"
+      >
+        Show all
+      </option>
+    </select>
+    Exactly one must hold true
+    <fieldset
+      className="field-property valid-false severity-undefined"
+      hidden={false}
+      name="fullName"
+      title="fullName"
+    >
+      <legend>
+        fullName
+      </legend>
+      <input
+        aria-label="fullName"
+        onChange={[Function]}
+      />
+    </fieldset>
+    <fieldset
+      className="field-property valid-false severity-undefined"
+      hidden={true}
+      name="firstName"
+      title="firstName"
+    >
+      <legend>
+        firstName
+      </legend>
+      <input
+        aria-label="firstName"
+        onChange={[Function]}
+      />
+    </fieldset>
+    <fieldset
+      className="field-property valid-false severity-undefined"
+      hidden={true}
+      name="lastName"
+      title="lastName"
+    >
+      <legend>
+        lastName
+      </legend>
+      <input
+        aria-label="lastName"
+        onChange={[Function]}
+      />
+    </fieldset>
+  </fieldset>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 30`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="P"
+    title="P"
+  >
+    <legend>
+      P
+    </legend>
+    <input
+      aria-label="P"
+      onChange={[Function]}
+    />
+    <input
+      aria-label="P"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 31`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="SP"
+    title="SP"
+  >
+    <legend>
+      SP
+    </legend>
+    <input
+      aria-label="SP"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 32`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="address"
+    title="address"
+  >
+    <legend>
+      address
+    </legend>
+    <input
+      aria-label="address"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 33`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="testProperty"
+    title="testProperty"
+  >
+    <legend>
+      testProperty
+    </legend>
+    <input
+      aria-label="testProperty"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 34`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="value"
+    title="value"
+  >
+    <legend>
+      value
+    </legend>
+    <input
+      aria-label="value"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 35`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="value"
+    title="value"
+  >
+    <legend>
+      value
+    </legend>
+    <input
+      aria-label="value"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 36`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="property1"
+    title="property1"
+  >
+    <legend>
+      property1
+    </legend>
+    <input
+      aria-label="property1"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 37`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="property1"
+    title="property1"
+  >
+    <legend>
+      property1
+    </legend>
+    <input
+      aria-label="property1"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 38`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="gender"
+    title="gender"
+  >
+    <legend>
+      gender
+    </legend>
+    <input
+      aria-label="gender"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 39`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="prefLabel"
+    title="prefLabel"
+  >
+    <legend>
+      prefLabel
+    </legend>
+    <input
+      aria-label="prefLabel"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 40`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="property1"
+    title="property1"
+  >
+    <legend>
+      property1
+    </legend>
+    <input
+      aria-label="property1"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 41`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="first"
+    title="first"
+  >
+    <legend>
+      first
+    </legend>
+    <input
+      aria-label="first"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 42`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="property1"
+    title="property1"
+  >
+    <legend>
+      property1
+    </legend>
+    <input
+      aria-label="property1"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 43`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="firstName"
+    title="firstName"
+  >
+    <legend>
+      firstName
+    </legend>
+    <input
+      aria-label="firstName"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 44`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="versionInfo"
+    title="versionInfo"
+  >
+    <legend>
+      versionInfo
+    </legend>
+  </fieldset>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 45`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="property"
+    title="property"
+  >
+    <legend>
+      property
+    </legend>
+    <input
+      aria-label="property"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 46`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="property"
+    title="property"
+  >
+    <legend>
+      property
+    </legend>
+    <input
+      aria-label="property"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 47`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="firstName"
+    title="firstName"
+  >
+    <legend>
+      firstName
+    </legend>
+    <input
+      aria-label="firstName"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 48`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="property"
+    title="property"
+  >
+    <legend>
+      property
+    </legend>
+    <input
+      aria-label="property"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 49`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="postalCode"
+    title="postalCode"
+  >
+    <legend>
+      postalCode
+    </legend>
+    <input
+      aria-label="postalCode"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 50`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="address"
+    title="address"
+  >
+    <legend>
+      address
+    </legend>
+    <input
+      aria-label="address"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 51`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="myProperty"
+    title="myProperty"
+  >
+    <legend>
+      myProperty
+    </legend>
+    <input
+      aria-label="myProperty"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 52`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="myProperty"
+    title="myProperty"
+  >
+    <legend>
+      myProperty
+    </legend>
+    <input
+      aria-label="myProperty"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 53`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="myProperty"
+    title="myProperty"
+  >
+    <legend>
+      myProperty
+    </legend>
+    <input
+      aria-label="myProperty"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 54`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="myProperty"
+    title="myProperty"
+  >
+    <legend>
+      myProperty
+    </legend>
+    <input
+      aria-label="myProperty"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 55`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="myProperty"
+    title="myProperty"
+  >
+    <legend>
+      myProperty
+    </legend>
+    <input
+      aria-label="myProperty"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 56`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="myProperty"
+    title="myProperty"
+  >
+    <legend>
+      myProperty
+    </legend>
+    <input
+      aria-label="myProperty"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 57`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="property"
+    title="property"
+  >
+    <legend>
+      property
+    </legend>
+    <input
+      aria-label="property"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 58`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="address"
+    title="address"
+  >
+    <legend>
+      address
+    </legend>
+    <input
+      aria-label="address"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 59`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="comment"
+    title="comment"
+  >
+    <legend>
+      comment
+    </legend>
+    <input
+      aria-label="comment"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 60`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="address"
+    title="address"
+  >
+    <legend>
+      address
+    </legend>
+    <input
+      aria-label="address"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 61`] = `
+<form
+  onSubmit={[Function]}
+>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 62`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="digit"
+    title="digit"
+  >
+    <legend>
+      digit
+    </legend>
+    <input
+      aria-label="digit"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="digit"
+    title="digit"
+  >
+    <legend>
+      digit
+    </legend>
+    <input
+      aria-label="digit"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 63`] = `
+<form
+  onSubmit={[Function]}
+>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 64`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="related"
+    title="related"
+  >
+    <legend>
+      related
+    </legend>
+    <input
+      aria-label="related"
+      onChange={[Function]}
+    />
+    <input
+      aria-label="related"
+      onChange={[Function]}
+    />
+    <input
+      aria-label="related"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 65`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="digit"
+    title="digit"
+  >
+    <legend>
+      digit
+    </legend>
+    <input
+      aria-label="digit"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="digit"
+    title="digit"
+  >
+    <legend>
+      digit
+    </legend>
+    <input
+      aria-label="digit"
+      onChange={[Function]}
+    />
+    <input
+      aria-label="digit"
+      onChange={[Function]}
+    />
+    <input
+      aria-label="digit"
+      onChange={[Function]}
+    />
+    <input
+      aria-label="digit"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 66`] = `
+<form
+  onSubmit={[Function]}
+>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 67`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="myProperty"
+    title="myProperty"
+  >
+    <legend>
+      myProperty
+    </legend>
+    <input
+      aria-label="myProperty"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 68`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="label"
+    title="label"
+  >
+    <legend>
+      label
+    </legend>
+  </fieldset>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 69`] = `
+<form
+  onSubmit={[Function]}
+>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 70`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="myProperty"
+    title="myProperty"
+  >
+    <legend>
+      myProperty
+    </legend>
+    <input
+      aria-label="myProperty"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 71`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="myProperty"
+    title="myProperty"
+  >
+    <legend>
+      myProperty
+    </legend>
+    <input
+      aria-label="myProperty"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 72`] = `
+<form
+  onSubmit={[Function]}
+>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 73`] = `
+<form
+  onSubmit={[Function]}
+>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 74`] = `
+<form
+  onSubmit={[Function]}
+>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 75`] = `
+<form
+  onSubmit={[Function]}
+>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="englishLabel"
+    title="englishLabel"
+  >
+    <legend>
+      englishLabel
+    </legend>
+    <input
+      aria-label="englishLabel"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <fieldset
+    className="field-property valid-false severity-undefined"
+    hidden={false}
+    name="germanLabel"
+    title="germanLabel"
+  >
+    <legend>
+      germanLabel
+    </legend>
+    <input
+      aria-label="germanLabel"
+      onChange={[Function]}
+    />
+  </fieldset>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 76`] = `
+<form
+  onSubmit={[Function]}
+>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 77`] = `
+<form
+  onSubmit={[Function]}
+>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 78`] = `
+<form
+  onSubmit={[Function]}
+>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 79`] = `
+<form
+  onSubmit={[Function]}
+>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 80`] = `
+<form
+  onSubmit={[Function]}
+>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 81`] = `
+<form
+  onSubmit={[Function]}
+>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 82`] = `
+<form
+  onSubmit={[Function]}
+>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 83`] = `
+<form
+  onSubmit={[Function]}
+>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 84`] = `
+<form
+  onSubmit={[Function]}
+>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 85`] = `
+<form
+  onSubmit={[Function]}
+>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 86`] = `
+<form
+  onSubmit={[Function]}
+>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 87`] = `
+<form
+  onSubmit={[Function]}
+>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 88`] = `
+<form
+  onSubmit={[Function]}
+>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 89`] = `
+<form
+  onSubmit={[Function]}
+>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 90`] = `
+<form
+  onSubmit={[Function]}
+>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 91`] = `
+<form
+  onSubmit={[Function]}
+>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 92`] = `
+<form
+  onSubmit={[Function]}
+>
+  <button>
+    Submit
+  </button>
+</form>
+`;
+
+exports[`Testing consistency rendering of forms Correctly renders all supported forms in the test suite 93`] = `
+<form
+  onSubmit={[Function]}
+>
+  <button>
+    Submit
+  </button>
+</form>
+`;

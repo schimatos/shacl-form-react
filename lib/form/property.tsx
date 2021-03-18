@@ -20,8 +20,9 @@ import type {
 import type { Data } from '../types/input';
 import { getCounts } from '../utils/property/get-counts';
 import { getStatus } from '../utils/property/get-status';
-import { getLabel, getSafePropertyEntries, pathToSparql } from '../utils';
+import { getFields, getLabel, getSafePropertyEntries, pathToSparql } from '../utils';
 import { Fieldset } from './fieldset';
+import { Fields } from './fields';
 
 interface State {
   fields: PropertyEntry<NamedNode | BlankNode | Literal | undefined>[];
@@ -403,8 +404,8 @@ function reducerFactory(field: AtomFieldEntry) {
 }
 
 export function Property({
-  data,
-  Input,
+  // data,
+  // Input,
   ...props
 }: RenderFieldProps<AtomFieldEntry>) {
   const label = getLabel(props.field);
@@ -414,17 +415,18 @@ export function Property({
     init,
   );
   useAsyncEffect(async () => {
-    const values = await getValues(data, props.field.value.path, props.queryEngine);
+    const values = await getValues(props.data, props.field.value.path, props.queryEngine);
     dispatch({
       type: 'dataChange',
       values,
     });
-  }, [data]);
+  }, [props.data]);
   const { fields } = state;
   return (
     <Fieldset {...props}>
       {fields.map((f, index) => (
-        <Input
+        <>
+        <props.Input
         key={f.key}
         props={f.data}
           onChange={(data) => {
@@ -441,6 +443,9 @@ export function Property({
           }
           label={label}
         />
+        {/* <Fields {...props} fields={getFields(props.field.value.sh$property)} /> */}
+        {/* Recursive case goes here */}
+        </>
       ))}
     </Fieldset>
   );

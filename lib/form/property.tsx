@@ -23,6 +23,8 @@ import { getStatus } from '../utils/property/get-status';
 import { getFields, getLabel, getSafePropertyEntries, pathToSparql } from '../utils';
 import { Fieldset } from './fieldset';
 import { Fields } from './fields';
+import { PathSelector } from './path';
+import { namedNode } from '@rdfjs/data-model';
 
 interface State {
   fields: PropertyEntry<NamedNode | BlankNode | Literal | undefined>[];
@@ -423,11 +425,21 @@ export function Property({
   }, [props.data]);
   const { fields } = state;
   return (
+    <>
+    {props.field.value.path.type === 'BlankNode' && <PathSelector data={props.data} path={props.field.value.path} onChange={async ({ data: d }) => {
+      // TODO [FUTURE]: Remove implicit type & handle temporary variables properly
+      if (d) {
+        dispatch({ type: 'dataChange', values: await d.toArray(async (value: any) => ({
+          value: await value,
+          temporary: false,
+        })) })
+      }
+    }} />}
     <Fieldset {...props}>
       {fields.map((f, index) => (
-        <>
         <props.Input
-        key={f.key}
+        // TODO: REMOVE index here
+        key={`${f.key}${index}`}
         props={f.data}
           onChange={(data) => {
             dispatch({ type: 'update', index, data });
@@ -443,11 +455,11 @@ export function Property({
           }
           label={label}
         />
-        {/* <Fields {...props} fields={getFields(props.field.value.sh$property)} /> */}
-        {/* Recursive case goes here */}
-        </>
+        // {/* <Fields {...props} fields={getFields(props.field.value.sh$property)} /> */}
+        // {/* Recursive case goes here */}
       ))}
     </Fieldset>
+    </>
   );
 }
 

@@ -44,10 +44,10 @@
   "homepage": "https://github.com/schimatos/shacl-form-react#readme",
   "devDependencies": {
     "@comunica/actor-init-sparql": "^1.19.2",
-    "@ldfields/default-react": "^0.0.5",
+    "@ldfields/default-react": "^0.0.6",
     "@testing-library/dom": "^7.29.6",
     "@testing-library/react": "^11.2.5",
-    "@testing-library/user-event": "^12.7.1",
+    "@testing-library/user-event": "^13.0.16",
     "@types/deindent": "^0.1.0",
     "@types/jest": "^26.0.19",
     "@types/jest-axe": "^3.5.1",

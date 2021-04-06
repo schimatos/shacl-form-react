@@ -1354,11 +1354,11 @@ function SinglePath({
   path,
   inverted,
 }: Props) {
-  console.log('rendering', `${inverted ? '^' : ''}<${path.value}>`)
+  // console.log('rendering', `${inverted ? '^' : ''}<${path.value}>`)
   useEffect(() => {
-    console.log('pre triggering onchange for ', `${inverted ? '^' : ''}<${path.value}>`, pathData.data?.[`${inverted ? '^' : ''}<${path.value}>`])
+    // console.log('pre triggering onchange for ', `${inverted ? '^' : ''}<${path.value}>`, pathData.data?.[`${inverted ? '^' : ''}<${path.value}>`])
     onChange({ connected: pathData.connected, data: pathData.data?.[`${inverted ? '^' : ''}<${path.value}>`] });
-    console.log('post triggering onchange for ', `${inverted ? '^' : ''}<${path.value}>`, pathData.data?.[`${inverted ? '^' : ''}<${path.value}>`])
+    // console.log('post triggering onchange for ', `${inverted ? '^' : ''}<${path.value}>`, pathData.data?.[`${inverted ? '^' : ''}<${path.value}>`])
   }, [pathData.data]);
   // return <>{path.value}</>;
   return <>{(inverted ? '^' : '') + /[^#/]+$/.exec(path.value)?.[0]}</>;
@@ -1450,7 +1450,7 @@ function AlternativePath({
 function Select({ value, data, onChange }: { value: any, data: any, onChange: (value: any) => void }): JSX.Element {
   const [values, set] = useState<{ [key: string]: any }>({});
   useAsyncEffect(async () => {
-    console.log(await data)
+    // console.log(await data)
     const lookup: { [key: string]: any } = {};
     for await (const x of data) {
       lookup[x] = x;
@@ -1505,7 +1505,7 @@ function Connection(props: Props) {
     },
     value: undefined,
   });
-  console.log('state at connection', state)
+  // console.log('state at connection', state)
   return (
     <>
       <PathToSparql {...props} path={start} onChange={(pathData) => { onChange({ pathData }); }} />
@@ -1544,7 +1544,7 @@ function RepeatedPath({ min, max, ...props }: Props & { min: number, max: number
 }
 
 function PathToSparql(props: Props): JSX.Element {
-  console.log(props.pathData)
+  // console.log(props.pathData)
   if (props.path.type === 'NamedNode') {
     return <SinglePath {...props} />;
   }

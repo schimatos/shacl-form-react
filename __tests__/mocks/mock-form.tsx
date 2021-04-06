@@ -7,16 +7,18 @@ import { RdfObjectProxy } from 'rdf-object-proxy';
 import { RdfObjectLoader } from 'rdf-object';
 // eslint-disable import/no-extraneous-dependencies
 import { Parser } from 'n3';
-import type { sh } from '../../lib/types';
-import { Form } from '../../lib';
-import { Input } from './mock-input';
-import PersonShape from '../data/person-shape';
 import LDfieldInput from '@ldfields/default-react';
 // @ts-ignore
 import { PathFactory } from 'ldflex';
 // @ts-ignore
-import ComunicaEngine from '@ldflex/comunica'
+import ComunicaEngine from '@ldflex/comunica';
 import { namedNode } from '@rdfjs/data-model';
+import type { sh } from '../../lib/types';
+import { Form } from '../../lib';
+import { Input } from './mock-input';
+import PersonShape from '../data/person-shape';
+// @ts-ignore
+// @ts-ignore
 
 export function MockForm({ shape }: { shape: AnyResource }) {
   return <Form
@@ -30,8 +32,8 @@ export function MockFormLDfield({ shape, data }: { shape: AnyResource, data?: an
   return <Form
     shape={shape as sh.NodeShape}
     data={data}
-    onChange={(e) => {
-      console.log('on change triggered', e)
+    onChange={() => {
+      // console.log('on change triggered', e);
     }}
     Input={LDfieldInput}
   />;
@@ -64,12 +66,14 @@ export function MockFormLDfield({ shape, data }: { shape: AnyResource, data?: an
 
 export const MockFormLazy = ReactLazyRender(
   async () => {
-    const loader = new RdfObjectLoader({ context: {
-      "@context": {
-        "@vocab": "http://www.w3.org/ns/shacl#",
-        "sh$property": "http://www.w3.org/ns/shacl#property",
-      }
-    } });
+    const loader = new RdfObjectLoader({
+      context: {
+        '@context': {
+          '@vocab': 'http://www.w3.org/ns/shacl#',
+          sh$property: 'http://www.w3.org/ns/shacl#property',
+        },
+      },
+    });
     const parser = new Parser();
     const quads = parser.parse(PersonShape);
     await loader.importArray(quads);
@@ -82,11 +86,11 @@ export const MockFormLazy = ReactLazyRender(
 
 // The JSON-LD context for resolving properties
 const context = {
-  "@context": {
-    "@vocab": "http://xmlns.com/foaf/0.1/",
-    "friends": "knows",
-    "label": "http://www.w3.org/2000/01/rdf-schema#label",
-  }
+  '@context': {
+    '@vocab': 'http://xmlns.com/foaf/0.1/',
+    friends: 'knows',
+    label: 'http://www.w3.org/2000/01/rdf-schema#label',
+  },
 };
 // The query engine and its source
 const queryEngine = new ComunicaEngine('https://ruben.verborgh.org/profile/');
@@ -95,18 +99,23 @@ const pathy = new PathFactory({ context, queryEngine });
 
 export const MockFormLazyLdfield = ReactLazyRender(
   async () => {
-    const loader = new RdfObjectLoader({ context: {
-      "@context": {
-        "@vocab": "http://www.w3.org/ns/shacl#",
-        "sh$property": "http://www.w3.org/ns/shacl#property",
-      }
-    } });
+    const loader = new RdfObjectLoader({
+      context: {
+        '@context': {
+          '@vocab': 'http://www.w3.org/ns/shacl#',
+          sh$property: 'http://www.w3.org/ns/shacl#property',
+        },
+      },
+    });
     const parser = new Parser();
     const quads = parser.parse(PersonShape);
     await loader.importArray(quads);
     const shape: any = RdfObjectProxy(loader.resources[
       'http://datashapes.org/sh/tests/core/complex/personexample.test#PersonShape'
     ]);
-    return <MockFormLDfield shape={shape} data={pathy.create({ subject: namedNode('https://ruben.verborgh.org/profile/#me') })} />;
+    return <MockFormLDfield
+        shape={shape}
+        data={pathy.create({ subject: namedNode('https://ruben.verborgh.org/profile/#me') })}
+      />;
   },
 );

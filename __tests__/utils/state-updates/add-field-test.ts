@@ -26,6 +26,8 @@ const emptyState = (
     },
   },
   key: fields.length,
+  subject: undefined,
+  predicate: undefined,
 });
 
 const emptyCount = (): Status => ({

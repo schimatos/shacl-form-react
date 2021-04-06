@@ -1,16 +1,17 @@
 import React, { useReducer } from 'react';
 import type { NamedNode, BlankNode, Literal } from 'rdf-js';
 import { copy } from 'copy-anything';
-import type { AnyResource } from 'rdf-object-proxy';
+// import type { AnyResource } from 'rdf-object-proxy';
 import type { Resource } from 'rdf-object';
-import { termToString } from 'rdf-string-ttl';
-import deindent from 'deindent';
-import type {
-  ActorInitSparql,
-  IQueryResult,
-} from '@comunica/actor-init-sparql';
-import { useAsyncEffect } from '@jeswr/use-async-effect';
+// import { termToString } from 'rdf-string-ttl';
+// import deindent from 'deindent';
+// import type {
+//   ActorInitSparql,
+//   IQueryResult,
+// } from '@comunica/actor-init-sparql';
+// import { useAsyncEffect } from '@jeswr/use-async-effect';
 // import { namedNode } from '@rdfjs/data-model';
+import { quad } from '@rdfjs/data-model';
 import type {
   RenderFieldProps,
   AtomFieldEntry,
@@ -24,12 +25,11 @@ import { getCounts } from '../utils/property/get-counts';
 import { getStatus } from '../utils/property/get-status';
 import {
   // getFields,
-  getLabel, getSafePropertyEntries, pathToSparql,
+  getLabel, getSafePropertyEntries, // pathToSparql,
 } from '../utils';
 import { Fieldset } from './fieldset';
 // import { Fields } from './fields';
 import { PathSelector } from './path';
-import { quad, namedNode } from '@rdfjs/data-model';
 
 interface State {
   fields: PropertyEntry<NamedNode | BlankNode | Literal | undefined>[];
@@ -319,38 +319,38 @@ interface ValueData {
  * first
  * TODO: Make the types around this stricter
  */
-async function getValues(
-  data: any,
-  path: AnyResource,
-  queryEngine?: ActorInitSparql,
-): Promise<ValueData[]> {
-  if (!data) {
-    return [];
-  }
-  return data[pathToSparql(path)].toArray(async (value: any) => {
-    // Long term this is probably better solved with a SPARQL* annotation
-    const query = deindent`
-        ASK {
-          GRAPH <http://schimatos/temporary-graph> {
-            ${termToString(data)} ${pathToSparql(path)} ${termToString(value)}
-          }
-        }`;
+// async function getValues(
+//   data: any,
+//   path: AnyResource,
+//   queryEngine?: ActorInitSparql,
+// ): Promise<ValueData[]> {
+//   if (!data) {
+//     return [];
+//   }
+//   return data[pathToSparql(path)].toArray(async (value: any) => {
+//     // Long term this is probably better solved with a SPARQL* annotation
+//     const query = deindent`
+//         ASK {
+//           GRAPH <http://schimatos/temporary-graph> {
+//             ${termToString(data)} ${pathToSparql(path)} ${termToString(value)}
+//           }
+//         }`;
 
-    const result: IQueryResult = await queryEngine?.query(query) ?? {
-      type: 'boolean',
-      booleanResult: Promise.resolve(false),
-    };
+//     const result: IQueryResult = await queryEngine?.query(query) ?? {
+//       type: 'boolean',
+//       booleanResult: Promise.resolve(false),
+//     };
 
-    if (result.type !== 'boolean') {
-      throw new Error('Boolean result expected');
-    }
+//     if (result.type !== 'boolean') {
+//       throw new Error('Boolean result expected');
+//     }
 
-    return {
-      value,
-      temporary: result.booleanResult,
-    };
-  });
-}
+//     return {
+//       value,
+//       temporary: result.booleanResult,
+//     };
+//   });
+// }
 
 /**
  * Gets all of the data for fields that was previously defined
@@ -392,7 +392,9 @@ export const runStateUpdates = runFieldUpdatesFactory([
   addFieldsFactory(true),
 ]);
 
-export function init({ values, field, subject, predicate }: {
+export function init({
+  values, field, subject, predicate,
+}: {
   values: ValueData[],
   field: AtomFieldEntry,
   subject: any,
@@ -411,7 +413,7 @@ export function init({ values, field, subject, predicate }: {
 
 function reducerFactory(field: AtomFieldEntry) {
   return function reducer(s: State, a: Action): State {
-    console.log('reducer called', s, a)
+    // console.log('reducer called', s, a);
     switch (a.type) {
       case 'delete': {
         const { state, index } = toDeletion(s, a);
@@ -431,9 +433,9 @@ function reducerFactory(field: AtomFieldEntry) {
         const fields = [...s.fields];
         fields[a.index] = {
           ...fields[a.index],
-          data: a.data
-        }
-        const { valid } = getStatus(fields)
+          data: a.data,
+        };
+        const { valid } = getStatus(fields);
         const deleted = s.deleted
           .map((x) => {
             if (x.data.term) {
@@ -448,14 +450,14 @@ function reducerFactory(field: AtomFieldEntry) {
           })
           .flat();
 
-          const additions = fields
+        const additions = fields
           .map((x) => {
             if (x.data.term && !x.preloaded) {
               return [
                 quad(
                   s.subject, // This it not necessarily a named node
                   s.predicate,
-                  x.data.term
+                  x.data.term,
                 ),
                 ...x.data.annotations,
               ];
@@ -470,15 +472,21 @@ function reducerFactory(field: AtomFieldEntry) {
           // TODO: Double check this
           property: s.predicate,
           path: a.path,
-        })
+        });
         return {
           ...s,
           fields,
         };
       }
       case 'dataChange': {
-        if (isDataValueChange(s, a.values) || (s.subject !== a.subject) || (s.predicate !== a.predicate)) {
-          return init({ values: a.values, field, subject: a.subject, predicate: a.predicate });
+        if (
+          isDataValueChange(s, a.values)
+          || (s.subject !== a.subject)
+          || (s.predicate !== a.predicate)
+        ) {
+          return init({
+            values: a.values, field, subject: a.subject, predicate: a.predicate,
+          });
         }
         return s;
       }
@@ -498,12 +506,12 @@ export function Property({
   const label = getLabel(props.field);
   const [state, dispatch] = useReducer(
     reducerFactory(props.field),
-    { 
+    {
       values: [],
       field: props.field,
       // Only set subject and predicate immediately if the path is not variable
       subject: props.field.value.path.type === 'NamedNode' ? props.data : undefined,
-      predicate: props.field.value.path.type === 'NamedNode' ? props.field.value.path : undefined
+      predicate: props.field.value.path.type === 'NamedNode' ? props.field.value.path : undefined,
     },
     init,
   );
@@ -515,15 +523,15 @@ export function Property({
   //   });
   // }, [props.data]);
   const { fields } = state;
-  console.log('at render property', state.fields)
+  // console.log('at render property', state.fields);
   return (
     <>
       {props.field.value.path.type === 'BlankNode' && <PathSelector
+        key={`pathselector-${props.path.join('&')}`}
         data={props.data}
         path={props.field.value.path}
         onChange={async ({ data: d }) => {
           // TODO [FUTURE]: Remove implicit type & handle temporary variables properly
-          console.log('Triggering on change', await d.subject, await d.predicate, `${await d.subject}`, `${await d.predicate}`)
           if (d) {
             dispatch({
               type: 'dataChange',
@@ -536,12 +544,12 @@ export function Property({
             });
           }
         }} />}
-      <Fieldset {...props}>
+      <Fieldset key={`fieldset-${props.path.join('&')}`} {...props}>
         {fields.map((f, index) => (
           <>
           <props.Input
             // TODO: REMOVE index here
-            key={`${f.key}${index}`}
+            key={`fieldset-${props.path.join('&')}-${f.key}${index}`}
             props={f.data}
             onChange={(data) => {
               dispatch({
@@ -549,7 +557,7 @@ export function Property({
                 index,
                 data,
                 onChange: props.onChange,
-                path: props.path
+                path: props.path,
               });
             }}
             data={{

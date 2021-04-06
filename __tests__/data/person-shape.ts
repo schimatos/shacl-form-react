@@ -40,7 +40,12 @@ ex:PersonShape
     sh:name "employee" ;
   ] ;
   sh:property [
-    sh:path [ sh:alternativePath ( [sh:zeroOrMorePath (foaf:knows)] [sh:zeroOrMorePath (foaf:name)]) ] ;
+    sh:path [
+      sh:alternativePath (
+        [sh:zeroOrMorePath (foaf:knows)]
+        [sh:zeroOrMorePath (foaf:name)]
+      )
+    ] ;
     sh:name "friend" ;
   ] ;
   sh:property [

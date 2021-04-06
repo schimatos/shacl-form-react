@@ -32,8 +32,8 @@ export function Form({ shape, onChange, ...props }:
         hidden={props.hidden ?? false}
         onFormChange={props.onFormChange ?? (() => {})}
         onChange={(e) => {
-          console.log('set validities called', e)
-          setValidities(e)
+          // console.log('set validities called', e);
+          setValidities(e);
         }}
         validities={validities}
         fields={getFields(shape)}

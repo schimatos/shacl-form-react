@@ -2,7 +2,7 @@ import type { AnyResource } from 'rdf-object-proxy/dist';
 
 function writeListPath(path: AnyResource, joiner: string = '/', settings?: { fragment?: boolean }) {
   // @ts-ignore
-  const mapped = path.list.map(x => pathToSparql(x, settings));
+  const mapped = path.list.map((x) => pathToSparql(x, settings));
   if (mapped.length === 0) {
     throw new Error('Invalid path');
   } else if (mapped.length === 1) {

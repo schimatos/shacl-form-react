@@ -23,7 +23,6 @@ export function Form({ shape, onChange, ...props }:
       },
     }), { validities: {}, updates: {} },
   );
-  // console.log(shape, getFields(shape));
   return (
     // TODO: See if this is better *inside* the reducer
     <form onSubmit={() => { onChange(updates); }} >
@@ -32,12 +31,20 @@ export function Form({ shape, onChange, ...props }:
         draggable={props.draggable ?? false}
         hidden={props.hidden ?? false}
         onFormChange={props.onFormChange ?? (() => {})}
-        onChange={(e) => setValidities(e)}
+        onChange={(e) => {
+          console.log('set validities called', e)
+          setValidities(e)
+        }}
         validities={validities}
         fields={getFields(shape)}
         path={[]}
       />
-      <button>Submit</button>
+      <button
+        type='button'
+        onClick={() => { onChange(updates); }}
+      >
+        Submit
+      </button>
     </form>
   );
 }

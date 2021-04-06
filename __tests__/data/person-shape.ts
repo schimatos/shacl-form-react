@@ -7,6 +7,7 @@ export default `@prefix dash: <http://datashapes.org/dash#> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix sht: <http://www.w3.org/ns/shacl-test#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/>.
 
 ex:Alice
   rdf:type ex:Person ;
@@ -30,6 +31,18 @@ ex:PersonShape
     ) ;
   sh:property _:b61064 ;
   sh:property _:b60054 ;
+  sh:property [
+    sh:path (ex:1 ex:2 ex:3) ;
+    sh:name "random path" ;
+  ] ;
+  sh:property [
+    sh:path [ sh:zeroOrMorePath (ex:1 ex:2 ex:3) ] ;
+    sh:name "employee" ;
+  ] ;
+  sh:property [
+    sh:path [ sh:alternativePath ( [sh:zeroOrMorePath (foaf:knows)] [sh:zeroOrMorePath (foaf:name)]) ] ;
+    sh:name "friend" ;
+  ] ;
   sh:property [
       sh:path [
           sh:inversePath ex:worksFor ;
@@ -101,4 +114,4 @@ _:b60054
         ] ;
     ] ;
   mf:status sht:approved ;
-.`
+.`;

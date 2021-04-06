@@ -1,10 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { MockFormLazy } from '../__tests__/mocks';
+import '../lib/styles.css'
+import { MockFormLazy, MockFormLazyLdfield } from '../__tests__/mocks';
 
 ReactDOM.render(
   <div id="app">
-    <MockFormLazy />
+    {/* <MockFormLazy />
+    <br />
+    <br /> */}
+    <MockFormLazyLdfield />
   </div>,
   document.getElementById('app'),
 );

@@ -1,3 +1,4 @@
+// eslint-ignore
 // import { AnyResource } from 'rdf-object-proxy/dist'
 // import React, {useState} from 'react'
 // import { Button, Icon, Input, Segment, Select, Dropdown } from 'semantic-ui-react'
@@ -45,17 +46,9 @@
 //   throw new Error('Invalid path');
 // }
 
-
-
-
-
 // function PathSelector({ path }: { path: AnyResource }) {
 
 // }
-
-
-
-
 
 // const getPath = ({path : [pT, ...path], value=_.isArray(pT)?pT[0]:0}) => dictSwitch({
 //     'or' : x => x[value],
@@ -117,11 +110,11 @@
 //             return ls && (_.isString(ls) ? {path : ls, inverse :false} : ls.lastPath)
 //         },
 //         add : (index, right) => {
-//             const i = index*2 + right 
+//             const i = index*2 + right
 //             this.value = _.concat(this.value.slice(0,i), right ? [{hist : [], link : undefined, prev : {path : undefined, inverse : false}, next : {path : undefined, inverse : false}},_.cloneDeep(this.s)] : [_.cloneDeep(this.s), {hist : [], link : undefined, prev : {path : undefined, inverse : false}, next : {path : undefined, inverse : false}}],this.slice(i))
 //         },
 //         // remove : (index, right) => {
-//         //     const i =  index*2 + right 
+//         //     const i =  index*2 + right
 //         //     this.value = _.concat(this.value.slice(0, i-1), this.value.slice(i+1))
 //         // },
 //         // change : (index) => {
@@ -144,7 +137,7 @@
 
 // //x.updateIRIs(store)
 
-// //const or = x => 
+// //const or = x =>
 //     // ['or', 'a', [[0, 1], 'p', 'q', ['inv', 's']], 'b', 'c']
 //     // const x = {
 //     //     value : 0,
@@ -167,17 +160,16 @@
 // // const DI = ({left, right, link, value, currentPath}) => {
 // //     const l = _.isArray(left) ? store.each(undefined, left[0], undefined).map(x => x.object.uri) : store.each(undefined, left, undefined).map(x => x.subject.uri)
 // //     const r = _.isArray(right) ? store.each(undefined, right[0], undefined).map(x => x.subject.uri) : store.each(undefined, right, undefined).map(x => x.object.uri)
-    
+
 // //     const entitiesAlongPath = currentPath.reduce((x,i) => {
 
 // //     })
-    
-// //     const allowedByPreds = _.intersection(l, r)
 
+// //     const allowedByPreds = _.intersection(l, r)
 
 // //     validatedField({nodeKind : 'IRI', 'in' : allowedByPreds}) // Add coloration to those that do/do not belong to the 'entitiesAlongPath' category
 
-// //     const link = 
+// //     const link =
 // // }
 
 // const getLast = (inv, p) => {
@@ -191,7 +183,6 @@
 // // Left keep searching right. If immediate left has no IRI then
 
 // export default ({path : p, value:va=get(p), onChange:c, name:n}) => {
-
 
 //     const [val, setVal] = useState(va)
 
@@ -212,25 +203,21 @@
 //             return {...vs, options : _.concat(vs.options.slice(0,l),cchange(vs.options[l]), vs.options.slice(l+1))}
 //         }
 
-
 //         // return {...vs, [_.isArray(l) ? 'value' : 'options'] : (_.isArray(l) ? {} : {})
-        
-        
-        
-        
-//         // (list.length > 0 ? ch(list, ) : 
+
+//         // (list.length > 0 ? ch(list, ) :
 //     }
 
 //     const cha = (l, change) => setVal(ch(l, change, val))
 
 //     const add = (index, right) => ({value, ...r}) => {
-//         const i = index + right 
+//         const i = index + right
 //         // console.log('adding', value, value.slice(0,i), value.slice(i), right ? [{hist : [], link : undefined, prev : {path : undefined, inverse : false}, next : {path : undefined, inverse : false}},_.cloneDeep(r.section)] : [_.cloneDeep(r.section), {hist : [], link : undefined, prev : {path : undefined, inverse : false}, next : {path : undefined, inverse : false}}])
 //         return {value : _.concat(value.slice(0,i), right ? [{hist : [], link : undefined, prev : {path : undefined, inverse : false}, next : {path : undefined, inverse : false}},_.cloneDeep(r.section)] : [_.cloneDeep(r.section), {hist : [], link : undefined, prev : {path : undefined, inverse : false}, next : {path : undefined, inverse : false}}],value.slice(i)), ...r}
 //     }
 
 //     const remove = (index, right) => ({value, ...r}) => {
-//         const i =  index + right 
+//         const i =  index + right
 //         return {value : _.concat(value.slice(0, i-1), value.slice(i+1)), ...r}
 //     }
 
@@ -241,7 +228,7 @@
 //     // })
 
 //     // const [val, setVal] = useState(v)
-    
+
 //     const PathSection = (locList, v) => {
 //         // console.log('path section called', locList, v)
 //         if (_.isArray(v)) {
@@ -258,11 +245,11 @@
 //             const repeats = (value.length + 1) / 2
 //             const allowAdd = repeats < max, allowRem = repeats > min
 //             // const add = (index, right) => {
-//             //     const i = index*2 + right 
+//             //     const i = index*2 + right
 //             //     v.value = _.concat(value.slice(0,i), right ? [{hist : [], link : undefined, prev : {path : undefined, inverse : false}, next : {path : undefined, inverse : false}},_.cloneDeep(section)] : [_.cloneDeep(section), {hist : [], link : undefined, prev : {path : undefined, inverse : false}, next : {path : undefined, inverse : false}}],value.slice(i))
 //             // }
 //             // const remove = (index, right) => {
-//             //     const i =  index*2 + right 
+//             //     const i =  index*2 + right
 //             //     v.value = _.concat(value.slice(0, i-1), value.slice(i+1))
 //             // }
 //             return value.map((x,i) => {
@@ -284,8 +271,8 @@
 // //         const [min, max]=pT, key=_.toString(locList), onClick = e => e.stopPropogation(),
 // //         onChange = (l, {value:n=l}) => _.isUndefined(n) || c([...locList, n].reduce(([obj, l], v) => [_.set(obj, [...l, 'value'], v), [...l, v]], [value, []])[0]),
 // //         s=paths.map((x, i) => _.isString(x) ? <D value={x}/> : PathSection([...locList, i], x, r[i])),
-// //         children=pT!='or'?<Input key={key}>{s}</Input>:optionsTextMap(s, x => <Input>{x}</Input>)   
-// //         console.log(children, children[value].text)   
+// //         children=pT!='or'?<Input key={key}>{s}</Input>:optionsTextMap(s, x => <Input>{x}</Input>)
+// //         console.log(children, children[value].text)
 
 // //         return dictSwitch({
 // //             'or' : () => <Select {...{options:children, text : children[value].text, onChange}}/>,
@@ -293,26 +280,22 @@
 // //             'default' : () => {
 // //                 min < max
 // //             }
-// //         return 
-
-
-
+// //         return
 
 // //         value.reduce((t,v,i) => {
 // //             const val = v.each(left,)
-            
+
 // //             v[left][right] || _.intersection(_.values(v[left]), storedGraph.each()
 // //             return i%2==0 ? PathSection(locList) : <DI onChange={} />
 // //         })
-// //         const num = 
+// //         const num =
 // //         if (num > min) {
 // //             include  +'s'
 // //         }
 // //         if (num < max) {
 
 // //         }
-// //         return pT == 'or' ? 
-
+// //         return pT == 'or' ?
 
 // //         return dictSwitch({
 // //             'or' : () => <Select {...{options:children, text : children[value].text, onChange}}/>,
@@ -321,7 +304,6 @@
 // //                 return i + 1 < alpha.length ? [...t, x, <DI left={x} right={alpha[i+1]}/>] : [...t, x]
 // //             }, [])}
 // //     }
-
 
 // //     return alpha.reduce((t, x, i) => {
 // //         return i + 1 < alpha.length ? [...t, x, <DI left={x} right={alpha[i+1]}/>] : [...t, x]
@@ -335,7 +317,6 @@
 // //         }, ['f'], IRI, ['f'],]
 // //     }
 
-
 // //     value = {
 // //         value : [[{
 
@@ -343,11 +324,7 @@
 
 // //     }
 
-
 // //     const isStatic = ([pT, ...pa]) => (_.isArray(pT) ? pT[0] == pT[1] : pT!='or') && pa.every(_.overSome([_.isString, isStatic]))
-
-
-
 
 // //     const D = ({value}) => value, DI = ({left, right}) => '(  l  '+left+'  r  '+right+' )'
 // //     const alpha = ['or','a', 'b', 'c', [[2,3], 'f']]
@@ -357,8 +334,7 @@
 // //     } else if ()
 
 // //     const PathSection = (locList, [pT, ...paths], {value=_.isArray(pT)?pT[0]:0, ...r}={}) => {
-// //         return pT == 'or' ? 
-
+// //         return pT == 'or' ?
 
 // //         return dictSwitch({
 // //             'or' : () => <Select {...{options:children, text : children[value].text, onChange}}/>,
@@ -368,14 +344,9 @@
 // //             }, [])}
 // //     }
 
-
 // //     return alpha.reduce((t, x, i) => {
 // //         return i + 1 < alpha.length ? [...t, x, <DI left={x} right={alpha[i+1]}/>] : [...t, x]
 // //     }, [])
-
-
-
-
 
 // //     // const D = ({value}) => value, DI = ({left, right}) => 'l'+left+'r'+right
 
@@ -383,16 +354,14 @@
 // //     //     const [min, max]=pT, key=_.toString(locList), onClick = e => e.stopPropogation(),
 // //     //     onChange = (l, {value:n=l}) => _.isUndefined(n) || c([...locList, n].reduce(([obj, l], v) => [_.set(obj, [...l, 'value'], v), [...l, v]], [value, []])[0]),
 // //     //     s=paths.map((x, i) => _.isString(x) ? <D value={x}/> : PathSection([...locList, i], x, r[i])),
-// //     //     children=pT!='or'?<Input key={key}>{s}</Input>:optionsTextMap(s, x => <Input>{x}</Input>)   
-// //     //     console.log(children, children[value].text)   
+// //     //     children=pT!='or'?<Input key={key}>{s}</Input>:optionsTextMap(s, x => <Input>{x}</Input>)
+// //     //     console.log(children, children[value].text)
 // //     //     return dictSwitch({
 // //     //         'or' : () => <Select {...{options:children, text : children[value].text, onChange}}/>,
 // //     //         'inv' : () => <Input><Icon {...{key, name : 'pointing up'}}/>{children}</Input>,
 // //     //         'default' : () => {
 // //     //             min < max
 // //     //         }
-
-
 
 // //     //         '0,1' : () => <Button {...extendDict({key, onClick : () => {onClick(); onChange(flipVal(value, 0, 1))}}, value ? {children} : {name:'step forward'})}/>,
 // //     //         '1,1' : children,
@@ -402,38 +371,32 @@
 // //     // return <DI left={'http://example.org'}/>
 // // }
 
-
 // // //     const isStatic = ([pT, ...pa]) => (_.isArray(pT) ? pT[0] == pT[1] : pT!='or') && pa.every(_.overSome([_.isString, isStatic]))
 // // //     const {configState : {advanced_features : {display_path_instead_of_name:d}}, formDisp : dispatch} = context()
 // // //     const D = IRIDisplay(), DI = IRIField()
-    
+
 // // //     const PathSection = (locList, [pT, ...paths], {value=_.isArray(pT)?pT[0]:0, ...r}={}) => {
 // // //         return <D value={'http://example.org'}/>
-
-
-
 
 // // //         // const [min, max]=pT, key=_.toString(locList), onClick = e => e.stopPropogation(),
 // // //         // onChange = (l, {value:n=l}) => _.isUndefined(n) || c([...locList, n].reduce(([obj, l], v) => [_.set(obj, [...l, 'value'], v), [...l, v]], [value, []])[0]),
 // // //         // s=paths.map((x, i) => _.isString(x) ? <D value={x}/> : PathSection([...locList, i], x, r[i])),
-// // //         // children=pT!='or'?<Input key={key}>{s}</Input>:optionsTextMap(s, x => <Input>{x}</Input>)   
-// // //         // console.log(children, children[value].text)   
+// // //         // children=pT!='or'?<Input key={key}>{s}</Input>:optionsTextMap(s, x => <Input>{x}</Input>)
+// // //         // console.log(children, children[value].text)
 // // //         // return dictSwitch({
 // // //         //     'inv' : () => <Input><Icon {...{key, name : 'pointing up'}}/>{children}</Input>,
 // // //         //     'default' : () => null
 // // //         // })
 // // //     }
-// // // //(!p || (!d && n && isStatic(p))) ? n : 
+// // // //(!p || (!d && n && isStatic(p))) ? n :
 // // //     return PathSection([], p, v)
 // // // }
-
-
 
 // // //     //     const [min, max]=pT, key=_.toString(locList), onClick = e => e.stopPropogation(),
 // // //     //     onChange = (l, {value:n=l}) => _.isUndefined(n) || c([...locList, n].reduce(([obj, l], v) => [_.set(obj, [...l, 'value'], v), [...l, v]], [value, []])[0]),
 // // //     //     s=paths.map((x, i) => _.isString(x) ? <D value={x}/> : PathSection([...locList, i], x, r[i])),
-// // //     //     children=pT!='or'?<Input key={key}>{s}</Input>:optionsTextMap(s, x => <Input>{x}</Input>)   
-// // //     //     console.log(children, children[value].text)   
+// // //     //     children=pT!='or'?<Input key={key}>{s}</Input>:optionsTextMap(s, x => <Input>{x}</Input>)
+// // //     //     console.log(children, children[value].text)
 // // //     //     return dictSwitch({
 // // //     //         'inv' : () => <Input><Icon {...{key, name : 'pointing up'}}/>{children}</Input>,
 // // //     //         'default' : () => null
@@ -451,7 +414,7 @@
 // // //     //     const [min, max]=pT, key=_.toString(locList), onClick = e => e.stopPropogation(),
 // // //     //     onChange = (l, {value:n=l}) => _.isUndefined(n) || c([...locList, n].reduce(([obj, l], v) => [_.set(obj, [...l, 'value'], v), [...l, v]], [value, []])[0]),
 // // //     //     s=paths.map((x, i) => _.isString(x) ? <D value={x}/> : PathSection([...locList, i], x, r[i])),
-// // //     //     children=pT!='or'?<Input key={key}>{s}</Input>:optionsTextMap(s, x => <Input>{x}</Input>)      
+// // //     //     children=pT!='or'?<Input key={key}>{s}</Input>:optionsTextMap(s, x => <Input>{x}</Input>)
 // // //     //     return dictSwitch({
 // // //     //         'or' : () => <Select {...{options:children, text : children[value].text, onChange}}/>,
 // // //     //         'inv' : () => <Input><Icon {...{key, name : 'pointing up'}}/>{children}</Input>,
@@ -466,16 +429,15 @@
 // // //     //     // const [min, max]=pT, key=_.toString(locList), onClick = e => e.stopPropogation(),
 // // //     //     // onChange = n => _.isUndefined(n) || c([...locList, n].reduce(([obj, l], v) => [_.set(obj, [...l, 'value'], v), [...l, v]], [value, []])[0]),
 // // //     //     // s=paths.map((x, i) => _.isString(x) ? <IRIDisplay value={x}/> : PathSection([...locList, i], x, r[i])),
-// // //     //     // children=pT!='or'?<Input key={key}>{s}</Input>:optionsTextMap(s, x => <Input>{x}</Input>)      
+// // //     //     // children=pT!='or'?<Input key={key}>{s}</Input>:optionsTextMap(s, x => <Input>{x}</Input>)
 // // //     //     // return dictSwitch({
 // // //     //     //     'or' : () => <Select {...{options:children, text : children[value].text, onChange : (_, {value:v}) => onChange(v)}}/>,
 // // //     //     //     'inv' : () => <Input><Icon {...{key, name : 'pointing up'}}/>{children}</Input>,
 // // //     //     //     '0,1' : () => <Button {...extendDict({key, onClick : () => {onClick(); onChange(flipVal(value, 0, 1))}}, value ? {children} : {name:'step forward'})}/>,
 // // //     //     //     '1,1' : children,
 // // //     //     //     'default' : () => <Input key={key}>{children}<Input {...{type:'number',defaultValue:value,min,max, onClick, label : <Input><span>x<sup>{max}</sup><sub>{min}</sub></span></Input>}}/></Input>
-// // //     //     //     })(pT)()}        
+// // //     //     //     })(pT)()}
 // // //     // return <Input>{PathSection([], p, v)}</Input>
-
 
 // import React, { useState } from 'react';
 // import ReactDOM from 'react-dom'
@@ -504,7 +466,7 @@
 //   const [option, set] = useState(0);
 //   return (
 //     <>
-//     <select onChange={e => set(e.value)} value={option}> 
+//     <select onChange={e => set(e.value)} value={option}>
 //     {
 //         path.list.map((opt, i) => {
 //           return (
@@ -522,12 +484,12 @@
 
 // function Range({ min, max, path }) {
 //   const [repitions, set] = useState(min);
-//   return 
+//   return
 // }
 
 // function PathToSparql({ path }) {
 //   console.log(path)
-//   // return JSON.stringify(path) 
+//   // return JSON.stringify(path)
 //   if (path.type === 'NamedNode') {
 //     return path.value;
 //   }
@@ -559,7 +521,6 @@
 // export const App = () => {
 //   return <PathToSparql path={pathInput}/>
 // }
-
 
 // function writeListPath(path, joiner = '/') {
 //   // @ts-ignore
@@ -602,10 +563,8 @@
 //   throw new Error('Invalid path');
 // }
 
-
 // ReactDOM.render(<App />,
 // document.getElementById("root"))
-
 
 // import React, { useState } from 'react';
 // import ReactDOM from 'react-dom'
@@ -640,7 +599,7 @@
 //   const [option, set] = useState(0);
 //   return (
 //     <>
-//     <select onChange={e => set(e.value)} value={option}> 
+//     <select onChange={e => set(e.value)} value={option}>
 //     {
 //         path.list.map((opt, i) => {
 //           return (
@@ -668,12 +627,12 @@
 // }
 
 // function SinglePath({ path, data, value, onChange }) {
-//   const 
+//   const
 // }
 
 // function PathToSparql({ path, data, value, onChange }) {
 //   console.log(path)
-//   // return JSON.stringify(path) 
+//   // return JSON.stringify(path)
 //   if (path.type === 'NamedNode') {
 //     return path.value;
 //   }
@@ -705,7 +664,6 @@
 // export const App = () => {
 //   return <PathToSparql path={pathInput}/>
 // }
-
 
 // function writeListPath(path, joiner = '/') {
 //   // @ts-ignore
@@ -748,12 +706,8 @@
 //   throw new Error('Invalid path');
 // }
 
-
 // ReactDOM.render(<App />,
 // document.getElementById("root"))
-
-
-
 
 // const pathInput = {
 //   type: "BlankNode",
@@ -815,8 +769,6 @@
 //   throw new Error("Invalid path");
 // }
 
-
-
 // import "./styles.css";
 // import examplePath from './sample'
 // import { pathToSparql } from './to-sparql'
@@ -846,7 +798,7 @@
 
 // export default function App() {
 //   const [value, onChange] = useState(undefined);
-//   return <PathToSparql 
+//   return <PathToSparql
 //     // data={pathy}
 //       path={examplePath}
 //       data={x}
@@ -872,7 +824,7 @@
 //   // console.log('option', option)
 //   return (
 //     <>
-//     <select onChange={e => set(e.target.value)} value={option}> 
+//     <select onChange={e => set(e.target.value)} value={option}>
 //     {
 //         path.list.map((opt, i) => {
 //           return (
@@ -903,7 +855,7 @@
 // }
 
 // /**
-//  * 
+//  *
 //  * data is an LDflex object
 //  */
 // function SinglePath({
@@ -919,7 +871,6 @@
 //   }, [data, path, onChange])
 //   return `${path.value}`;
 // }
-
 
 // import "./styles.css";
 // import examplePath from './sample'
@@ -952,7 +903,7 @@
 //   const [value, onChange] = useState(undefined);
 //   return (
 // <>
-//   <PathToSparql 
+//   <PathToSparql
 //     // data={pathy}
 //       path={examplePath}
 //       data={x}
@@ -992,7 +943,7 @@
 //   console.log('option', JSON.stringify(option))
 //   return (
 //     <>
-//     <select onChange={e => set({ type: "option", option: e.target.value })} value={option.option}> 
+//     <select onChange={e => set({ type: "option", option: e.target.value })} value={option.option}>
 //     {
 //         path.list.map((opt, i) => {
 //           return (
@@ -1032,7 +983,7 @@
 // }
 
 // /**
-//  * 
+//  *
 //  * data is an LDflex object
 //  */
 // function SinglePath({
@@ -1060,14 +1011,14 @@
 // // import ComunicaEngine from '@ldflex/comunica';
 // // import { namedNode } from '@rdfjs/data-model';
 
-// // // The JSON-LD context for resolving properties
-// // const context = {
-// //   "@context": {
-// //     "@vocab": "http://xmlns.com/foaf/0.1/",
-// //     "friends": "knows",
-// //     "label": "http://www.w3.org/2000/01/rdf-schema#label",
-// //   }
-// // };
+// The JSON-LD context for resolving properties
+// const context = {
+//   "@context": {
+//     "@vocab": "http://xmlns.com/foaf/0.1/",
+//     "friends": "knows",
+//     "label": "http://www.w3.org/2000/01/rdf-schema#label",
+//   }
+// };
 // // // The query engine and its source
 // // const queryEngine = new ComunicaEngine('https://ruben.verborgh.org/profile/');
 // // // The object that can create new paths
@@ -1084,7 +1035,7 @@
 //   const [value, onChange] = useState(undefined);
 //   return (
 // <>
-//   <PathToSparql 
+//   <PathToSparql
 //     // data={pathy}
 //       path={examplePath}
 //       data={x}
@@ -1124,7 +1075,7 @@
 //   console.log('option', JSON.stringify(option))
 //   return (
 //     <>
-//     <select onChange={e => set({ type: "option", option: e.target.value })} value={option.option}> 
+//     <select onChange={e => set({ type: "option", option: e.target.value })} value={option.option}>
 //     {
 //         path.list.map((opt, i) => {
 //           return (
@@ -1164,7 +1115,7 @@
 // }
 
 // /**
-//  * 
+//  *
 //  * data is an LDflex object
 //  */
 // function SinglePath({
@@ -1183,9 +1134,6 @@
 // }
 // 1
 
-
-
-
 // import "./styles.css";
 // import examplePath, { example2 } from './sample'
 // import { pathToSparql } from './to-sparql'
@@ -1197,18 +1145,18 @@
 // // import ComunicaEngine from '@ldflex/comunica';
 // // import { namedNode } from '@rdfjs/data-model';
 
-// // // The JSON-LD context for resolving properties
-// // const context = {
-// //   "@context": {
-// //     "@vocab": "http://xmlns.com/foaf/0.1/",
-// //     "friends": "knows",
-// //     "label": "http://www.w3.org/2000/01/rdf-schema#label",
-// //   }
-// // };
-// // // The query engine and its source
-// // const queryEngine = new ComunicaEngine('https://ruben.verborgh.org/profile/');
-// // // The object that can create new paths
-// // const pathy = new PathFactory({ context, queryEngine });
+// // The JSON-LD context for resolving properties
+// const context = {
+//   "@context": {
+//     "@vocab": "http://xmlns.com/foaf/0.1/",
+//     "friends": "knows",
+//     "label": "http://www.w3.org/2000/01/rdf-schema#label",
+//   }
+// };
+// // The query engine and its source
+// const queryEngine = new ComunicaEngine('https://ruben.verborgh.org/profile/');
+// // The object that can create new paths
+// const pathy = new PathFactory({ context, queryEngine });
 
 // const x = {
 //   myval: Promise.resolve(' - Testing'),
@@ -1221,7 +1169,7 @@
 //   const [value, onChange] = useState(undefined);
 //   return (
 // <>
-//   <PathToSparql 
+//   <PathToSparql
 //     // data={pathy}
 //       path={example2}
 //       data={x}
@@ -1263,7 +1211,7 @@
 //   console.log('option', JSON.stringify(option))
 //   return (
 //     <>
-//     <select onChange={e => set({ type: "option", option: e.target.value })} value={option.option}> 
+//     <select onChange={e => set({ type: "option", option: e.target.value })} value={option.option}>
 //     {
 //         path.list.map((opt, i) => {
 //           return (
@@ -1297,7 +1245,7 @@
 //       // setSelection({ index: '0' })
 //   }, [value])
 //   return (
-//     <select 
+//     <select
 //       value={index}
 //       onChange={onChange}>
 //       {
@@ -1327,7 +1275,7 @@
 //       <Select value={value} />
 //       <SequencePath {...props} path={rest} />
 //     </>
-//   )  
+//   )
 //   // <PathToSparql {...props} path={start} />
 //   // return rest.reduce((T, segment) => <><T /><PathToSparql {...props} path={segment} /></> ,<PathToSparql {...props} path={start} />)
 // }
@@ -1350,7 +1298,7 @@
 // }
 
 // /**
-//  * 
+//  *
 //  * data is an LDflex object
 //  */
 // function SinglePath({
@@ -1365,9 +1313,9 @@
 // }
 // import "./styles.css";
 import React, { useEffect, useReducer } from 'react';
-import { useState } from '@jeswr/use-state'
+import { useState } from '@jeswr/use-state';
 import { useAsyncEffect } from '@jeswr/use-async-effect';
-import { pathToSparql } from '../utils'
+import { pathToSparql } from '../utils';
 
 /**
  * PathData object that is passed internally through
@@ -1397,29 +1345,32 @@ interface Props {
 }
 
 /**
- * 
+ *
  * data is an LDflex object
  */
 function SinglePath({
   pathData,
   onChange,
   path,
-  inverted
+  inverted,
 }: Props) {
+  console.log('rendering', `${inverted ? '^' : ''}<${path.value}>`)
   useEffect(() => {
-    onChange({ connected: pathData.connected, data: pathData.data?.[`${inverted ? '^' : ''}<${path.value}>`] })
-  }, [pathData.data])
+    console.log('pre triggering onchange for ', `${inverted ? '^' : ''}<${path.value}>`, pathData.data?.[`${inverted ? '^' : ''}<${path.value}>`])
+    onChange({ connected: pathData.connected, data: pathData.data?.[`${inverted ? '^' : ''}<${path.value}>`] });
+    console.log('post triggering onchange for ', `${inverted ? '^' : ''}<${path.value}>`, pathData.data?.[`${inverted ? '^' : ''}<${path.value}>`])
+  }, [pathData.data]);
   // return <>{path.value}</>;
-  return <>{(inverted ? '^' : '') + /[^#/]+$/.exec(path.value)?.[0]}</>
+  return <>{(inverted ? '^' : '') + /[^#/]+$/.exec(path.value)?.[0]}</>;
 }
 
 export function PathSelector({ path, data, onChange }: { path: any, data: any, onChange: (state: PathData) => void }) {
-  return <PathToSparql 
+  return <PathToSparql
       path={path}
       pathData={{ data, connected: true }}
       onChange={onChange}
       inverted={false}
-    />
+    />;
 }
 
 interface State {
@@ -1431,7 +1382,7 @@ interface State {
 
 interface A1 {
   type: 'option',
-  option: string 
+  option: string
 }
 
 interface A2 {
@@ -1446,18 +1397,18 @@ function AlternativePath({
   path,
   onChange,
   pathData,
-  inverted
+  inverted,
 }: Props) {
   const [option, set] = useReducer<Reducer>((s: State, a: A1 | A2) => {
     switch (a.type) {
       case 'option': {
-        const state = { ...s, option: a.option }
-        onChange(state.values[state.option])
+        const state = { ...s, option: a.option };
+        onChange(state.values[state.option]);
         return state;
       }
       case 'onChange': {
-        const state: State = { ...s, values: { ...s.values, [a.option]: a.value } }
-        onChange(state.values[state.option])
+        const state: State = { ...s, values: { ...s.values, [a.option]: a.value } };
+        onChange(state.values[state.option]);
         return state;
       }
       default:
@@ -1466,20 +1417,18 @@ function AlternativePath({
   }, {
     // TODO: Clean this
     values: Object.fromEntries(path.list.map((x: any, i: number): [number, PathData] => [i, ({ connected: true, data: pathData.data?.[pathToSparql(x)] })])),
-    option: "0",
+    option: '0',
   });
   // console.log('option', JSON.stringify(option))
   return (
     <>
-    <select onChange={e => set({ type: "option", option: e.target.value })} value={option.option}> 
+    <select onChange={(e) => set({ type: 'option', option: e.target.value })} value={option.option}>
     {
-        path.list.map((opt: any, i: number) => {
-          return (
+        path.list.map((opt: any, i: number) => (
             <option value={i} key={i}>
               {pathToSparql(opt, { fragment: true })}
             </option>
-          )
-        })
+        ))
       }
     </select>
     <br />
@@ -1487,9 +1436,9 @@ function AlternativePath({
       inverted={inverted}
       path={path.list[option.option]}
       onChange={(value: any) => set({
-        type: "onChange",
+        type: 'onChange',
         value,
-        option: option.option
+        option: option.option,
       })}
       pathData={pathData}
       // value={option.values[option.option]}
@@ -1501,46 +1450,45 @@ function AlternativePath({
 function Select({ value, data, onChange }: { value: any, data: any, onChange: (value: any) => void }): JSX.Element {
   const [values, set] = useState<{ [key: string]: any }>({});
   useAsyncEffect(async () => {
+    console.log(await data)
     const lookup: { [key: string]: any } = {};
     for await (const x of data) {
       lookup[x] = x;
     }
     set(lookup);
     // TODO: DOUBLE CHECK THIS
-    onChange(lookup[`${value}`])
+    onChange(lookup[`${value}`]);
   }, [data]);
   return (
-    <select 
+    <select
       value={
         value === undefined ? undefined : `${value}`
         // `${value}`
     }
-      onChange={v => {
+      onChange={(v) => {
         onChange(values[v.target.value]);
       }}>
       <option disabled value={undefined}> -- select an option -- </option>
       {
         Object.keys(values).map((v: string) => (
             <option value={v}>{v}</option>
-          )
-        )
+        ))
       }
     </select>
-  )
+  );
 }
 
 function SequencePath({ path, ...props }: Props) {
   if (path.length === 0) {
-    return <></>
+    return <></>;
   }
   if (path.length === 1) {
-    return <PathToSparql {...props} path={path[0]} />
+    return <PathToSparql {...props} path={path[0]} />;
   }
-  return <Connection {...props} path={path} />
+  return <Connection {...props} path={path} />;
   // <PathToSparql {...props} path={start} />
   // return rest.reduce((T, segment) => <><T /><PathToSparql {...props} path={segment} /></> ,<PathToSparql {...props} path={start} />)
 }
-
 
 interface ReducerData {
   pathData: PathData;
@@ -1549,54 +1497,54 @@ interface ReducerData {
 
 function Connection(props: Props) {
   const [start, ...rest] = props.path;
-  const [state, onChange] = useReducer<(s: ReducerData, a: Partial<ReducerData>) => ReducerData>((s: ReducerData, a): ReducerData => {
-    return { ...s, ...a };
-  }, {
+  const [state, onChange] = useReducer<(s: ReducerData, a: Partial<ReducerData>) => ReducerData>((s: ReducerData, a): ReducerData => ({ ...s, ...a }), {
     pathData: {
       // TODO: Fix this as it currently forces things to load twice
       data: props.pathData.data?.[pathToSparql(start)],
       connected: false,
     },
     value: undefined,
-  })
+  });
+  console.log('state at connection', state)
   return (
     <>
-      <PathToSparql {...props} path={start} onChange={pathData => { onChange({ pathData }) }} />
-      <Select data={state.pathData.data} value={state.value} onChange={value => { onChange({ value }) }} />
+      <PathToSparql {...props} path={start} onChange={(pathData) => { onChange({ pathData }); }} />
+      <Select data={state.pathData.data} value={state.value} onChange={(value) => { onChange({ value }); }} />
       <SequencePath {...props} path={rest} pathData={{
         connected: state.pathData.connected && state.value !== undefined,
-        data: state.value ?? state.pathData.data
+        data: state.value ?? state.pathData.data,
       }} />
     </>
-  )
+  );
 }
 
 function EmptyPath(props: Props) {
   useEffect(() => {
-    props.onChange(props.pathData)
-  }, [])
-  return <></>
+    props.onChange(props.pathData);
+  }, [props.pathData.data, props.pathData.connected]);
+  return <></>;
 }
 
-function RepeatedPath({min, max, ...props}: Props & { min: number, max: number }) {
+function RepeatedPath({ min, max, ...props }: Props & { min: number, max: number }) {
   const [state, dispatch] = useState<number>(min);
   if (state === 0) {
     return (
       <>
-      <input type='number' min={min} max={max} value={state} onChange={e => { dispatch(Number(e.target.value)) }} />
+      <input type='number' min={min} max={max} value={state} onChange={(e) => { dispatch(Number(e.target.value)); }} />
       <EmptyPath {...props} />
       </>
-    )
+    );
   }
   return (
     <>
-      <input type='number' min={min} max={max} value={state} onChange={e => { dispatch(Number(e.target.value)) }} />
+      <input type='number' min={min} max={max} value={state} onChange={(e) => { dispatch(Number(e.target.value)); }} />
       <SequencePath {...props} path={Array(state).fill(props.path)}/>
     </>
-    )
+  );
 }
 
 function PathToSparql(props: Props): JSX.Element {
+  console.log(props.pathData)
   if (props.path.type === 'NamedNode') {
     return <SinglePath {...props} />;
   }
@@ -1623,4 +1571,3 @@ function PathToSparql(props: Props): JSX.Element {
   }
   return <>{pathToSparql(props.path)}</>;
 }
-

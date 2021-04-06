@@ -19,6 +19,8 @@ const emptyState = () => ({
     },
   },
   key: 0,
+  subject: undefined,
+  predicate: undefined,
 });
 
 const emptyStatus = (): Status => ({

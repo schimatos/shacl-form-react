@@ -1,32 +1,49 @@
 import React, { useReducer } from 'react';
 import type { NamedNode, BlankNode, Literal } from 'rdf-js';
 import { copy } from 'copy-anything';
-import type { AnyResource } from 'rdf-object-proxy';
-import { termToString } from 'rdf-string-ttl';
-import deindent from 'deindent';
-import type {
-  ActorInitSparql,
-  IQueryResult,
-} from '@comunica/actor-init-sparql';
-import { useAsyncEffect } from '@jeswr/use-async-effect';
+// import type { AnyResource } from 'rdf-object-proxy';
+import type { Resource } from 'rdf-object';
+// import { termToString } from 'rdf-string-ttl';
+// import deindent from 'deindent';
+// import type {
+//   ActorInitSparql,
+//   IQueryResult,
+// } from '@comunica/actor-init-sparql';
+// import { useAsyncEffect } from '@jeswr/use-async-effect';
+// import { namedNode } from '@rdfjs/data-model';
+import { quad } from '@rdfjs/data-model';
 import type {
   RenderFieldProps,
   AtomFieldEntry,
   PropertyEntry,
   Counts,
   Status,
+  PassedProps,
 } from '../types';
 import type { Data } from '../types/input';
 import { getCounts } from '../utils/property/get-counts';
 import { getStatus } from '../utils/property/get-status';
-import { getLabel, getSafePropertyEntries, pathToSparql } from '../utils';
+import {
+  // getFields,
+  getLabel, getSafePropertyEntries, // pathToSparql,
+} from '../utils';
 import { Fieldset } from './fieldset';
+// import { Fields } from './fields';
+import { PathSelector } from './path';
 
 interface State {
   fields: PropertyEntry<NamedNode | BlankNode | Literal | undefined>[];
   deleted: PropertyEntry[];
   counts: Counts;
+  // TODO: Double check if the key is necessary
   key: number;
+  /**
+   * Subject and predicate are the subject and predicate to
+   * be used with the term
+   */
+  // TODO: Use better types here
+  subject: any;
+  predicate: any;
 }
 
 // TODO: FIX UPDATE BEING INTERNAL AND EXTERNAL
@@ -38,18 +55,23 @@ interface State {
  */
 type InternalAction =
   | {
-      type: 'delete';
-      index?: number;
-    }
+    type: 'delete';
+    index?: number;
+  }
   | {
-      type: 'unlock';
-      index: number;
-    }
+    type: 'unlock';
+    index: number;
+  } // CHECK WHY THERE ARE TWO UPDATE TYPES
   | {
-      type: 'update';
-      index: number;
-      data: Data<BlankNode | Literal | NamedNode | undefined>;
-    };
+    type: 'update';
+    index: number;
+    data: Data<BlankNode | Literal | NamedNode | undefined>;
+    /**
+     * onChange function to be triggered during the update
+     */
+    onChange: PassedProps['onChange']
+    path: PassedProps['path']
+  };
 
 /**
  * Actions which are caused by external events
@@ -57,22 +79,34 @@ type InternalAction =
  */
 type ExternalAction =
   | {
-      type: 'delete';
-      index?: number;
-    }
+    type: 'delete';
+    index?: number;
+  }
   | {
-      type: 'unlock';
-      index: number;
-    }
+    type: 'unlock';
+    index: number;
+  }
   | {
-      type: 'update';
-      index: number;
-      data: Data<BlankNode | Literal | NamedNode | undefined>;
-    }
+    type: 'update';
+    index: number;
+    data: Data<BlankNode | Literal | NamedNode | undefined>;
+    /**
+     * onChange function to be triggered during the update
+     */
+    onChange: PassedProps['onChange']
+    path: PassedProps['path']
+  }
   | {
-      type: 'dataChange';
-      values: ValueData[];
-    };
+    type: 'dataChange';
+    values: ValueData[];
+    /**
+     * Subject and predicate are the subject and predicate to
+     * be used with the term
+     */
+    // TODO: Use better types here
+    subject: any;
+    predicate: any;
+  };
 
 type Action = InternalAction | ExternalAction;
 
@@ -285,38 +319,38 @@ interface ValueData {
  * first
  * TODO: Make the types around this stricter
  */
-async function getValues(
-  data: any,
-  path: AnyResource,
-  queryEngine?: ActorInitSparql,
-): Promise<ValueData[]> {
-  if (!data) {
-    return [];
-  }
-  return data[pathToSparql(path)].toArray(async (value: any) => {
-    // Long term this is probably better solved with a SPARQL* annotation
-    const query = deindent`
-        ASK {
-          GRAPH <http://schimatos/temporary-graph> {
-            ${termToString(data)} ${pathToSparql(path)} ${termToString(value)}
-          }
-        }`;
+// async function getValues(
+//   data: any,
+//   path: AnyResource,
+//   queryEngine?: ActorInitSparql,
+// ): Promise<ValueData[]> {
+//   if (!data) {
+//     return [];
+//   }
+//   return data[pathToSparql(path)].toArray(async (value: any) => {
+//     // Long term this is probably better solved with a SPARQL* annotation
+//     const query = deindent`
+//         ASK {
+//           GRAPH <http://schimatos/temporary-graph> {
+//             ${termToString(data)} ${pathToSparql(path)} ${termToString(value)}
+//           }
+//         }`;
 
-    const result: IQueryResult = await queryEngine?.query(query) ?? {
-      type: 'boolean',
-      booleanResult: Promise.resolve(false),
-    };
+//     const result: IQueryResult = await queryEngine?.query(query) ?? {
+//       type: 'boolean',
+//       booleanResult: Promise.resolve(false),
+//     };
 
-    if (result.type !== 'boolean') {
-      throw new Error('Boolean result expected');
-    }
+//     if (result.type !== 'boolean') {
+//       throw new Error('Boolean result expected');
+//     }
 
-    return {
-      value,
-      temporary: result.booleanResult,
-    };
-  });
-}
+//     return {
+//       value,
+//       temporary: result.booleanResult,
+//     };
+//   });
+// }
 
 /**
  * Gets all of the data for fields that was previously defined
@@ -358,18 +392,28 @@ export const runStateUpdates = runFieldUpdatesFactory([
   addFieldsFactory(true),
 ]);
 
-export function init({ values, field }: {values: ValueData[], field: AtomFieldEntry}) {
+export function init({
+  values, field, subject, predicate,
+}: {
+  values: ValueData[],
+  field: AtomFieldEntry,
+  subject: any,
+  predicate: any
+}) {
   const counts = getCounts(field);
   return runStateUpdates({
     fields: values.map((value, i) => createLoaded(i, value.value, !value.temporary)),
     deleted: [],
     counts,
     key: values.length,
+    subject,
+    predicate,
   });
 }
 
 function reducerFactory(field: AtomFieldEntry) {
   return function reducer(s: State, a: Action): State {
+    // console.log('reducer called', s, a);
     switch (a.type) {
       case 'delete': {
         const { state, index } = toDeletion(s, a);
@@ -385,11 +429,64 @@ function reducerFactory(field: AtomFieldEntry) {
         return runStateUpdates(toDeletion(s, a).state);
       }
       case 'update': {
-        return s;
+        // TODO [FUTURE]: See if we need to propogate up here
+        const fields = [...s.fields];
+        fields[a.index] = {
+          ...fields[a.index],
+          data: a.data,
+        };
+        const { valid } = getStatus(fields);
+        const deleted = s.deleted
+          .map((x) => {
+            if (x.data.term) {
+              // TODO: Handle this case - it should never occur
+              return [
+                // TODO inverse path handling here
+                quad(s.subject, s.predicate, x.data.term),
+                ...x.data.annotations,
+              ];
+            }
+            return [];
+          })
+          .flat();
+
+        const additions = fields
+          .map((x) => {
+            if (x.data.term && !x.preloaded) {
+              return [
+                quad(
+                  s.subject, // This it not necessarily a named node
+                  s.predicate,
+                  x.data.term,
+                ),
+                ...x.data.annotations,
+              ];
+            }
+            return [];
+          })
+          .flat();
+        a.onChange({
+          valid,
+          delete: deleted,
+          insert: additions,
+          // TODO: Double check this
+          property: s.predicate,
+          path: a.path,
+        });
+        return {
+          ...s,
+          fields,
+        };
       }
       case 'dataChange': {
-        if (isDataValueChange(s, a.values)) {
-          return init({ values: a.values, field });
+        if (
+          isDataValueChange(s, a.values)
+          || (s.subject !== a.subject)
+          || (s.predicate !== a.predicate)
+        ) {
+          return init({
+            values: a.values, field, subject: a.subject, predicate: a.predicate,
+          });
         }
         return s;
       }
@@ -402,45 +499,103 @@ function reducerFactory(field: AtomFieldEntry) {
 }
 
 export function Property({
-  data,
-  Input,
+  // data,
+  // Input,
   ...props
 }: RenderFieldProps<AtomFieldEntry>) {
   const label = getLabel(props.field);
   const [state, dispatch] = useReducer(
     reducerFactory(props.field),
-    { values: [], field: props.field },
+    {
+      values: [],
+      field: props.field,
+      // Only set subject and predicate immediately if the path is not variable
+      subject: props.field.value.path.type === 'NamedNode' ? props.data : undefined,
+      predicate: props.field.value.path.type === 'NamedNode' ? props.field.value.path : undefined,
+    },
     init,
   );
-  useAsyncEffect(async () => {
-    const values = await getValues(data, props.field.value.path, props.queryEngine);
-    dispatch({
-      type: 'dataChange',
-      values,
-    });
-  }, [data]);
+  // useAsyncEffect(async () => {
+  //   const values = await getValues(props.data, props.field.value.path, props.queryEngine);
+  //   dispatch({
+  //     type: 'dataChange',
+  //     values,
+  //   });
+  // }, [props.data]);
   const { fields } = state;
+  // console.log('at render property', state.fields);
   return (
-    <Fieldset {...props}>
-      {fields.map((f, index) => (
-        <Input
-        key={f.key}
-        props={f.data}
-          onChange={(data) => {
-            dispatch({ type: 'update', index, data });
-          }}
-          data={{
-            pathFactory: props.pathFactory,
-            queryEngine: props.queryEngine,
-          }}
-          constraints={
-            {
-              /* TODO: REINTRODUCE CONSTRAINTS HERE */
-            }
+    <>
+      {props.field.value.path.type === 'BlankNode' && <PathSelector
+        key={`pathselector-${props.path.join('&')}`}
+        data={props.data}
+        path={props.field.value.path}
+        onChange={async ({ data: d }) => {
+          // TODO [FUTURE]: Remove implicit type & handle temporary variables properly
+          if (d) {
+            dispatch({
+              type: 'dataChange',
+              subject: await d.subject,
+              predicate: await d.predicate,
+              values: await d.toArray(async (value: any) => ({
+                value: await value,
+                temporary: false,
+              })),
+            });
           }
-          label={label}
-        />
-      ))}
-    </Fieldset>
+        }} />}
+      <Fieldset key={`fieldset-${props.path.join('&')}`} {...props}>
+        {fields.map((f, index) => (
+          <>
+          <props.Input
+            // TODO: REMOVE index here
+            key={`fieldset-${props.path.join('&')}-${f.key}${index}`}
+            props={f.data}
+            onChange={(data) => {
+              dispatch({
+                type: 'update',
+                index,
+                data,
+                onChange: props.onChange,
+                path: props.path,
+              });
+            }}
+            data={{
+              pathFactory: props.pathFactory,
+              queryEngine: props.queryEngine,
+            }}
+            constraints={
+              {
+                restrictions: getRestrictions(props.field.value.property),
+              }
+            }
+            label={label}
+          />
+          {/* <Fields {...props} fields={getFields(props.field.value.sh$property)} /> */}
+          </>
+          // {/* Recursive case goes here */}
+        ))}
+      </Fieldset>
+    </>
   );
+}
+
+// TODO [FUTURE]: Preprocess this fully (flags should be combined with pattern etc.)
+function getRestrictions(property: Record<string, Resource>) {
+  const restrictions: Record<string, any> = {
+    // termType: {
+    //   // in: ['BlankNode', 'NamedNode', 'Literal']
+    //   in: {
+    //     BlankNode: true,
+    //     NamedNode: true,
+    //     Literal: true
+    //   }
+    // }
+  };
+  for (const p in property) {
+    if (property[p].term.termType === 'Literal') {
+      restrictions[/[a-z]+$/i.exec(p)?.[0] ?? ''] = property[p].term.value;
+    }
+  }
+  return restrictions;
 }

@@ -8,10 +8,10 @@ export function Fields({ path = [], fields, ...props }: RenderFieldsProps) {
     <>
       {fields
         .sort((a, b) => getOrder(a) - getOrder(b))
-        .map((field) => (
+        .map((field, i) => (
           <Field
             {...props}
-            key={[...path, field].map((p) => `${p.type}&${p.value}`).join('-')}
+            key={[...path, field].map((p) => `${p.type}&${p.value}&${i}`).join('-')}
             path={[...path, field]}
             field={field}
           />

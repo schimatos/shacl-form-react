@@ -25,6 +25,8 @@ export function MyApp() {
 
 This library also exposes the `SHACLFormInternal` component.
 
+Note that this component uses `rdf-object` which has a dependency on the node `stream` package. If you intend to use the component in a browser application you will need to use a wepack polfill. See
+
 ## License
 ©2019–present
 [Jesse Wright](https://github.com/jeswr), Commonwealth of Australia,

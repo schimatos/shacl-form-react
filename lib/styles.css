@@ -4,15 +4,15 @@ input, label {
 };
 
 input:invalid {
-  background-color: pink;
+  background-color: pink !important;
 };
 
 .valid-true {
-  background-color: rgba(0, 128, 0, 0.481);
+  background-color: rgba(0, 128, 0, 0.481) !important;
 };
 
 .valid-false {
-  background-color: rgba(128, 126, 0, 0.494);
+  background-color: rgba(128, 126, 0, 0.494) !important;
 };
 
 legend {
@@ -24,4 +24,5 @@ legend {
 fieldset {
   padding: 0px 10px 10px 10px !important;
   border: 1px solid !important;
+  width: fit-content !important;
 };

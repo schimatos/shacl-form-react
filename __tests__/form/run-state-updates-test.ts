@@ -35,6 +35,8 @@ describe('Testing on empty fields and deleted', () => {
       key: 0,
       fields: [],
       deleted: [],
+      subject: undefined,
+      predicate: undefined,
     })).toEqual({
       counts: {
         count: {
@@ -63,6 +65,8 @@ describe('Testing on empty fields and deleted', () => {
         qualifiedValid: false,
       }],
       deleted: [],
+      subject: undefined,
+      predicate: undefined,
     });
   });
   it('Should not make any changes if maxcount is 0', () => {
@@ -71,11 +75,15 @@ describe('Testing on empty fields and deleted', () => {
       key: 0,
       fields: [],
       deleted: [],
+      subject: undefined,
+      predicate: undefined,
     })).toEqual({
       counts: counts(0, 0),
       key: 0,
       fields: [],
       deleted: [],
+      subject: undefined,
+      predicate: undefined,
     });
   });
   it('Should add the first field by default', () => {
@@ -97,6 +105,8 @@ describe('Testing on empty fields and deleted', () => {
       key: 0,
       fields: [],
       deleted: [],
+      subject: undefined,
+      predicate: undefined,
     })).toEqual({
       counts: {
         count: {
@@ -125,6 +135,8 @@ describe('Testing on empty fields and deleted', () => {
         key: 0,
       }],
       deleted: [],
+      subject: undefined,
+      predicate: undefined,
     });
   });
 });

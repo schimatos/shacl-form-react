@@ -1,0 +1,144 @@
+{
+  "@context":
+  {},
+  "@graph": [
+    {
+      "@id": "http://datashapes.org/sh/tests/core/complex/personexample.test#PersonShape",
+      "@type": [
+        "http://www.w3.org/ns/shacl#NodeShape"
+      ],
+      "http://www.w3.org/ns/shacl#closed": [
+        {
+          "@value": "true",
+          "@type": "http://www.w3.org/2001/XMLSchema#boolean"
+        }
+      ],
+      "http://www.w3.org/ns/shacl#ignoredProperties": [
+        {
+          "@id": "_:n3-0"
+        }
+      ]
+    },
+    {
+      "@id": "_:n3-0",
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#first": [
+        {
+          "@id": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
+        }
+      ],
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest": [
+        {
+          "@id": "http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"
+        }
+      ],
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#first": [
+        {
+          "@id": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
+        }
+      ],
+      "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest": [
+        {
+          "@id": "http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"
+        }
+      ]
+    },
+    {
+      "@id": "http://datashapes.org/sh/tests/core/complex/personexample.test#PersonShape",
+      "http://www.w3.org/ns/shacl#property": [
+        {
+          "@id": "_:b15_b61064"
+        }
+      ]
+    },
+    {
+      "@id": "_:b15_b61064",
+      "http://www.w3.org/ns/shacl#path": [
+        {
+          "@id": "http://datashapes.org/sh/tests/core/complex/personexample.test#ssn"
+        }
+      ],
+      "http://www.w3.org/ns/shacl#datatype": [
+        {
+          "@id": "http://www.w3.org/2001/XMLSchema#string"
+        }
+      ],
+      "http://www.w3.org/ns/shacl#maxCount": [
+        {
+          "@value": "1",
+          "@type": "http://www.w3.org/2001/XMLSchema#integer"
+        }
+      ],
+      "http://www.w3.org/ns/shacl#pattern": [
+        {
+          "@value": "^\\d{3}-\\d{2}-\\d{4}$"
+        }
+      ]
+    },
+    {
+      "@id": "http://datashapes.org/sh/tests/core/complex/personexample.test#PersonShape",
+      "http://www.w3.org/ns/shacl#property": [
+        {
+          "@id": "_:b15_b60054"
+        }
+      ]
+    },
+    {
+      "@id": "_:b15_b60054",
+      "http://www.w3.org/ns/shacl#path": [
+        {
+          "@id": "http://datashapes.org/sh/tests/core/complex/personexample.test#worksFor"
+        }
+      ],
+      "http://www.w3.org/ns/shacl#class": [
+        {
+          "@id": "http://datashapes.org/sh/tests/core/complex/personexample.test#Company"
+        }
+      ],
+      "http://www.w3.org/ns/shacl#nodeKind": [
+        {
+          "@id": "http://www.w3.org/ns/shacl#IRI"
+        }
+      ]
+    },
+    {
+      "@id": "http://datashapes.org/sh/tests/core/complex/personexample.test#PersonShape",
+      "http://www.w3.org/ns/shacl#property": [
+        {
+          "@id": "_:n3-1"
+        }
+      ]
+    },
+    {
+      "@id": "_:n3-1",
+      "http://www.w3.org/ns/shacl#path": [
+        {
+          "@id": "_:n3-2"
+        }
+      ]
+    },
+    {
+      "@id": "_:n3-2",
+      "http://www.w3.org/ns/shacl#inversePath": [
+        {
+          "@id": "http://datashapes.org/sh/tests/core/complex/personexample.test#worksFor"
+        }
+      ]
+    },
+    {
+      "@id": "_:n3-1",
+      "http://www.w3.org/ns/shacl#name": [
+        {
+          "@value": "employee"
+        }
+      ]
+    },
+    {
+      "@id": "http://datashapes.org/sh/tests/core/complex/personexample.test#PersonShape",
+      "http://www.w3.org/ns/shacl#targetClass": [
+        {
+          "@id": "http://datashapes.org/sh/tests/core/complex/personexample.test#Person"
+        }
+      ]
+    }
+  ]
+}

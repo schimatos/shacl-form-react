@@ -45,6 +45,7 @@
   "homepage": "https://github.com/schimatos/shacl-form-react#readme",
   "devDependencies": {
     "@comunica/actor-init-sparql": "^1.19.2",
+    "@comunica/utils-datasource": "^1.20.0",
     "@jeswr/react-lazy-render": "^1.0.1",
     "@ldfields/default-react": "^0.0.9",
     "@ldflex/comunica": "^3.4.2",

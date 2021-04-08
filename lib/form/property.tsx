@@ -704,7 +704,7 @@ function getRestrictions(property: Record<string, Resource>) {
           Literal: ['Literal'],
           BlankNodeOrIRI: ['BlankNode', 'IRI'],
           BlankNodeOrLiteral: ['BlankNode', 'Literal'],
-          LiteralOrIRI: ['Literal', 'IRI'],
+          // LiteralOrIRI: ['Literal', 'IRI'],
           IRIOrLiteral: ['Literal', 'IRI'],
         }[/[a-z]+$/i.exec(property[p].term.value)?.[0] ?? ''],
       };

@@ -17,8 +17,8 @@
     "test": "jest",
     "lint": "eslint lib/** __tests__/* --ext .ts --ext .tsx",
     "lint:fix": "eslint lib/** __tests__/* --ext .ts --ext .tsx --fix",
-    "build": "tsc",
-    "prepare": "tsc",
+    "build": "tsc && cp lib/styles.css dist/styles.css",
+    "prepare": "npm run build",
     "semantic-release": "semantic-release",
     "typedoc": "typedoc lib/index.ts",
     "webpack": "webpack --mode=development"

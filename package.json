@@ -142,7 +142,7 @@
     "n3": "^1.9.0",
     "rdf-object-proxy": "^1.0.0",
     "rdf-string-ttl": "^1.1.0",
-    "sparql-search-bar": "*"
+    "sparql-search-bar": "1.0.0-alpha.1"
   },
   "peerDependencies": {
     "react": "^17.0.1",

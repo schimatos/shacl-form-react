@@ -13,7 +13,11 @@ interface State {
 
 export function Form({ shape, onChange, ...props }:
   Partial<FormProps>
-  & { shape: sh.NodeShape, onChange: (e: UpdateQuads) => void, Input: FormProps['Input'] }) {
+  & {
+    shape: sh.NodeShape,
+    onChange: (e: UpdateQuads) => void,
+    Input: FormProps['Input']
+  }) {
   const [{ validities, updates }, setValidities] = useReducer(
     (s: State, a: PropertyData) => ({
       validities: { ...s.validities, [`${a.path[a.path.length - 1].value}`]: a.valid },

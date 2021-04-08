@@ -27,7 +27,7 @@ export interface PropertyEntry<T extends Term | undefined = NamedNode | BlankNod
    * Pre-loaded whether the data is preloaded
    * (i.e. it already exists within the graph)
    */
-  preloaded: boolean;
+  preloaded: T extends undefined ? false : boolean;
   /**
    * Used as a key for rendering
    */

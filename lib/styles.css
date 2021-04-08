@@ -7,11 +7,11 @@ input:invalid {
   background-color: pink !important;
 };
 
-.valid-true {
+fieldset {
   background-color: rgba(0, 128, 0, 0.481) !important;
 };
 
-.valid-false {
+fieldset .valid-false {
   background-color: rgba(128, 126, 0, 0.494) !important;
 };
 
@@ -25,4 +25,19 @@ fieldset {
   padding: 0px 10px 10px 10px !important;
   border: 1px solid !important;
   width: fit-content !important;
+  display:block !important;
 };
+
+
+/* * {
+  background-color: rgba(0, 0, 0, 0) !important;
+}
+
+fieldset .valid-false {
+  background-color: pink !important;
+};
+
+fieldset .valid-true {
+  background-color: rgba(128, 126, 0, 0.494) !important;
+}; */
+

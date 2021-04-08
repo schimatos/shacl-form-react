@@ -46,7 +46,14 @@ ex:PersonShape
         [sh:zeroOrMorePath (foaf:name)]
       )
     ] ;
+    sh:nodeKind sh:NamedNode ;
+    sh:class foaf:person ;
     sh:name "friend" ;
+    sh:property [
+      sh:path foaf:name ;
+      sh:name "name (foaf)" ;
+      sh:nodeKind sh:Literal ;
+    ] ;
   ] ;
   sh:property [
       sh:path [

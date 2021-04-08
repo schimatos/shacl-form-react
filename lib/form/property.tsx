@@ -1,5 +1,7 @@
 import React, { useReducer } from 'react';
-import type { NamedNode, BlankNode, Literal } from 'rdf-js';
+import type {
+  NamedNode, BlankNode, Literal, Quad,
+} from 'rdf-js';
 import { copy } from 'copy-anything';
 // import type { AnyResource } from 'rdf-object-proxy';
 import type { Resource } from 'rdf-object';
@@ -11,7 +13,8 @@ import type { Resource } from 'rdf-object';
 // } from '@comunica/actor-init-sparql';
 // import { useAsyncEffect } from '@jeswr/use-async-effect';
 // import { namedNode } from '@rdfjs/data-model';
-import { quad } from '@rdfjs/data-model';
+import { namedNode, quad } from '@rdfjs/data-model';
+import { ToLabel } from 'sparql-search-bar';
 import type {
   RenderFieldProps,
   AtomFieldEntry,
@@ -19,17 +22,20 @@ import type {
   Counts,
   Status,
   PassedProps,
+  sh,
 } from '../types';
 import type { Data } from '../types/input';
 import { getCounts } from '../utils/property/get-counts';
 import { getStatus } from '../utils/property/get-status';
 import {
+  getFields,
   // getFields,
   getLabel, getSafePropertyEntries, // pathToSparql,
 } from '../utils';
 import { Fieldset } from './fieldset';
 // import { Fields } from './fields';
 import { PathSelector } from './path';
+import { Fields } from './fields';
 
 interface State {
   fields: PropertyEntry<NamedNode | BlankNode | Literal | undefined>[];
@@ -131,6 +137,7 @@ function createLoaded(
   key: number,
   term: undefined | NamedNode | BlankNode | Literal = undefined,
   preloaded = true,
+  annotations: Quad[] = [],
 ): PropertyEntry<undefined | NamedNode | BlankNode | Literal> {
   return {
     valid: false,
@@ -139,7 +146,7 @@ function createLoaded(
     preloaded,
     data: {
       term,
-      annotations: [],
+      annotations,
     },
     key,
   };
@@ -312,6 +319,7 @@ function runFieldUpdatesFactory(updaters: Updater[]) {
 interface ValueData {
   value: any;
   temporary: boolean;
+  annotations: []
 }
 
 /**
@@ -402,7 +410,9 @@ export function init({
 }) {
   const counts = getCounts(field);
   return runStateUpdates({
-    fields: values.map((value, i) => createLoaded(i, value.value, !value.temporary)),
+    fields: values.map(
+      (value, i) => createLoaded(i, value.value, !value.temporary, value.annotations),
+    ),
     deleted: [],
     counts,
     key: values.length,
@@ -537,45 +547,123 @@ export function Property({
               type: 'dataChange',
               subject: await d.subject,
               predicate: await d.predicate,
-              values: await d.toArray(async (value: any) => ({
-                value: await value,
-                temporary: false,
-              })),
+              values: await d.toArray(async (value: any) => {
+                const type = await value['http://www.w3.org/1999/02/22-rdf-syntax-ns#type'];
+                const label = await value['http://www.w3.org/2000/01/rdf-schema#label'];
+
+                const annotations = [];
+
+                if (`${type}` !== 'undefined') {
+                  annotations.push(
+                    quad(
+                      value,
+                      namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'),
+                      type,
+                    ),
+                  );
+                }
+
+                if (`${label}` !== 'undefined') {
+                  annotations.push(
+                    quad(
+                      value,
+                      namedNode('http://www.w3.org/2000/01/rdf-schema#label'),
+                      label,
+                    ),
+                  );
+                }
+
+                return {
+                  value: await value,
+                  temporary: false,
+                  annotations,
+                };
+              }),
             });
           }
         }} />}
       <Fieldset key={`fieldset-${props.path.join('&')}`} {...props}>
-        {fields.map((f, index) => (
+        {fields.map((f, index) => <>{(f.preloaded ? (
           <>
-          <props.Input
-            // TODO: REMOVE index here
-            key={`fieldset-${props.path.join('&')}-${f.key}${index}`}
-            props={f.data}
-            onChange={(data) => {
-              dispatch({
-                type: 'update',
-                index,
-                data,
-                onChange: props.onChange,
-                path: props.path,
-              });
-            }}
-            data={{
-              pathFactory: props.pathFactory,
-              queryEngine: props.queryEngine,
-            }}
-            constraints={
-              {
-                restrictions: getRestrictions(props.field.value.property),
-              }
+            {
+              f.data.term?.termType === 'BlankNode' || f.data.term?.termType === 'NamedNode'
+                ? <ToLabel
+                  pathFactory={props.pathFactory}
+                  key={`fieldset-${props.path.join('&')}-${f.key}${index}`}
+                  data={{
+                    value: f.data.term?.value,
+                    termType: f.data.term?.termType,
+                    'http://www.w3.org/2000/01/rdf-schema#label': undefined,
+                  }} />
+                : `${f.data.term}`
             }
-            label={label}
-          />
-          {/* <Fields {...props} fields={getFields(props.field.value.sh$property)} /> */}
+            <button
+              name="edit"
+              hidden={//! props.disabled ||
+                props.hidden}
+              onClick={() => {
+                dispatch({
+                  type: 'unlock',
+                  index,
+                });
+              }}
+              type="button"
+            >
+              {'\u270E'}
+            </button>
+            <button
+              name="delete"
+              hidden={//! disabled ||
+                props.hidden}
+              onClick={() => {
+                dispatch({
+                  type: 'delete',
+                  index,
+                });
+              }}
+              type="button"
+            >
+              x
+      </button>
           </>
-          // {/* Recursive case goes here */}
+        ) : (
+          <>
+            <props.Input
+              // TODO: REMOVE index here
+              key={`fieldset-${props.path.join('&')}-${f.key}${index}`}
+              props={f.data}
+              onChange={(data) => {
+                dispatch({
+                  type: 'update',
+                  index,
+                  data,
+                  onChange: props.onChange,
+                  path: props.path,
+                });
+              }}
+              data={{
+                pathFactory: props.pathFactory,
+                queryEngine: props.queryEngine,
+              }}
+              constraints={
+                {
+                  restrictions: getRestrictions(props.field.value.property),
+                }
+              }
+              label={label}
+            />
+          </>
         ))}
+        <Fields
+          {...props}
+          path={[...props.path, props.field]}
+          data={f.data}
+          fields={getFields(props.field.value as sh.NodeShape)}
+          />
+        </>)}
+
       </Fieldset>
+
     </>
   );
 }
@@ -592,9 +680,34 @@ function getRestrictions(property: Record<string, Resource>) {
     //   }
     // }
   };
+  /* eslint-disable guard-for-in */
   for (const p in property) {
     if (property[p].term.termType === 'Literal') {
       restrictions[/[a-z]+$/i.exec(p)?.[0] ?? ''] = property[p].term.value;
+    }
+    if (p === 'http://www.w3.org/ns/shacl#nodeKind') {
+      restrictions.termType = {
+        // TODO: Use proper nodekind mapping here
+        in: [/[a-z]+$/i.exec(property[p].term.value)?.[0]],
+      };
+    }
+    if (p === 'http://www.w3.org/ns/shacl#datatype') {
+      restrictions.datatype = {
+        in: [/[a-z]+$/i.exec(property[p].term.value)?.[0]],
+      };
+    }
+    if (p === 'http://www.w3.org/ns/shacl#class') {
+      restrictions['http://www.w3.org/1999/02/22-rdf-syntax-ns#type'] = {
+        in: {
+          BlankNode: ['BlankNode'],
+          IRI: ['NamedNode'],
+          Literal: ['Literal'],
+          BlankNodeOrIRI: ['BlankNode', 'IRI'],
+          BlankNodeOrLiteral: ['BlankNode', 'Literal'],
+          LiteralOrIRI: ['Literal', 'IRI'],
+          IRIOrLiteral: ['Literal', 'IRI'],
+        }[/[a-z]+$/i.exec(property[p].term.value)?.[0] ?? ''],
+      };
     }
   }
   return restrictions;

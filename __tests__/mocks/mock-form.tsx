@@ -28,12 +28,21 @@ export function MockForm({ shape }: { shape: AnyResource }) {
   />;
 }
 
-export function MockFormLDfield({ shape, data }: { shape: AnyResource, data?: any }) {
+export function MockFormLDfield({
+  shape,
+  data,
+  pathFactory,
+}: {
+  shape: AnyResource,
+  data?: any,
+  pathFactory: any
+}) {
   return <Form
     shape={shape as sh.NodeShape}
     data={data}
-    onChange={() => {
-      // console.log('on change triggered', e);
+    pathFactory={pathFactory}
+    onChange={(e) => {
+      console.log('on change triggered', e);
     }}
     Input={LDfieldInput}
   />;
@@ -115,6 +124,7 @@ export const MockFormLazyLdfield = ReactLazyRender(
     ]);
     return <MockFormLDfield
         shape={shape}
+        pathFactory={pathy}
         data={pathy.create({ subject: namedNode('https://ruben.verborgh.org/profile/#me') })}
       />;
   },

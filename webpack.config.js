@@ -1,9 +1,11 @@
 const path = require('path');
 const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
+const webpack = require('webpack')
 
 module.exports = {
   entry: './src/index.tsx',
   plugins: [
+    new webpack.HotModuleReplacementPlugin(),
 		new NodePolyfillPlugin()
 	],
   module: {

@@ -17,7 +17,6 @@
     "test": "jest",
     "lint": "eslint lib/** __tests__/* --ext .ts --ext .tsx",
     "lint:fix": "eslint lib/** __tests__/* --ext .ts --ext .tsx --fix",
-    "postinstall": "(cd node_modules/ldflex && npm i -D @babel/core && npm run build)",
     "build": "tsc && cp lib/styles.css dist/styles.css",
     "prepare": "npm run build",
     "semantic-release": "semantic-release",

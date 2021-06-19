@@ -8,12 +8,14 @@ import { RdfObjectLoader } from 'rdf-object';
 // eslint-disable import/no-extraneous-dependencies
 import { Parser } from 'n3';
 import LDfieldInput from '@ldfields/default-react';
+import rdfs from '@ontologies/rdfs';
+import sh from '@ontologies/shacl';
 // @ts-ignore
 import { PathFactory } from 'ldflex';
 // @ts-ignore
 import ComunicaEngine from '@ldflex/comunica';
 import { namedNode } from '@rdfjs/data-model';
-import type { sh } from '../../lib/types';
+import type { sh as shacl } from '../../lib/types';
 import { Form } from '../../lib';
 import { Input } from './mock-input';
 import PersonShape from '../data/person-shape';
@@ -22,7 +24,7 @@ import PersonShape from '../data/person-shape';
 
 export function MockForm({ shape }: { shape: AnyResource }) {
   return <Form
-    shape={shape as sh.NodeShape}
+    shape={shape as shacl.NodeShape}
     onChange={() => {}}
     Input={Input}
   />;
@@ -38,7 +40,7 @@ export function MockFormLDfield({
   pathFactory: any
 }) {
   return <Form
-    shape={shape as sh.NodeShape}
+    shape={shape as shacl.NodeShape}
     data={data}
     pathFactory={pathFactory}
     onChange={(e) => {
@@ -79,7 +81,7 @@ export const MockFormLazy = ReactLazyRender(
       context: {
         '@context': {
           '@vocab': 'http://www.w3.org/ns/shacl#',
-          sh$property: 'http://www.w3.org/ns/shacl#property',
+          sh$property: sh.property,
         },
       },
     });
@@ -98,7 +100,7 @@ const context = {
   '@context': {
     '@vocab': 'http://xmlns.com/foaf/0.1/',
     friends: 'knows',
-    label: 'http://www.w3.org/2000/01/rdf-schema#label',
+    label: rdfs.label.value,
   },
 };
 // The query engine and its source
@@ -112,7 +114,7 @@ export const MockFormLazyLdfield = ReactLazyRender(
       context: {
         '@context': {
           '@vocab': 'http://www.w3.org/ns/shacl#',
-          sh$property: 'http://www.w3.org/ns/shacl#property',
+          sh$property: sh.property,
         },
       },
     });

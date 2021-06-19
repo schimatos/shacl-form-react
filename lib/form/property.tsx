@@ -13,8 +13,12 @@ import type { Resource } from 'rdf-object';
 // } from '@comunica/actor-init-sparql';
 // import { useAsyncEffect } from '@jeswr/use-async-effect';
 // import { namedNode } from '@rdfjs/data-model';
-import { namedNode, quad } from '@rdfjs/data-model';
+import { quad } from '@rdfjs/data-model';
 import { ToLabel } from 'sparql-search-bar';
+import sh from '@ontologies/shacl';
+import rdf from '@ontologies/rdf';
+import rdfs from '@ontologies/rdfs';
+import { v4 as uuidv4 } from 'uuid'; // TODO [FUTURE]: REMOVE ONCE KEY ERRORS RESOLVED
 import type {
   RenderFieldProps,
   AtomFieldEntry,
@@ -22,7 +26,7 @@ import type {
   Counts,
   Status,
   PassedProps,
-  sh,
+  sh as shacl,
 } from '../types';
 import type { Data } from '../types/input';
 import { getCounts } from '../utils/property/get-counts';
@@ -533,11 +537,14 @@ export function Property({
   //   });
   // }, [props.data]);
   const { fields } = state;
-  // console.log('at render property', state.fields);
+  // console.log(props.field.value.path.term.value)
+  // TODO [FUTURE]: Propogate props.field.value.path.term.value into props.path earlier
+  const key = `${props.path.map((x) => x.value).join('&')}&${props.field.value.path.term.value}`;
+  console.log(key);
   return (
     <>
       {props.field.value.path.type === 'BlankNode' && <PathSelector
-        key={`pathselector-${props.path.join('&')}`}
+        key={`path-selector-${key}-${uuidv4()}`}
         data={props.data}
         path={props.field.value.path}
         onChange={async ({ data: d }) => {
@@ -548,29 +555,17 @@ export function Property({
               subject: await d.subject,
               predicate: await d.predicate,
               values: await d.toArray(async (value: any) => {
-                const type = await value['http://www.w3.org/1999/02/22-rdf-syntax-ns#type'];
-                const label = await value['http://www.w3.org/2000/01/rdf-schema#label'];
+                const type = await value[rdf.type.value];
+                const label = await value[rdfs.label.value];
 
                 const annotations = [];
 
                 if (`${type}` !== 'undefined') {
-                  annotations.push(
-                    quad(
-                      value,
-                      namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'),
-                      type,
-                    ),
-                  );
+                  annotations.push(quad(value, rdf.type, type));
                 }
 
                 if (`${label}` !== 'undefined') {
-                  annotations.push(
-                    quad(
-                      value,
-                      namedNode('http://www.w3.org/2000/01/rdf-schema#label'),
-                      label,
-                    ),
-                  );
+                  annotations.push(quad(value, rdfs.label, label));
                 }
 
                 return {
@@ -582,14 +577,14 @@ export function Property({
             });
           }
         }} />}
-      <Fieldset key={`fieldset-${props.path.join('&')}`} {...props}>
+      <Fieldset key={`fieldset-${key}-${uuidv4()}`} {...props}>
         {fields.map((f, index) => <>{(f.preloaded ? (
           <>
             {
               f.data.term?.termType === 'BlankNode' || f.data.term?.termType === 'NamedNode'
                 ? <ToLabel
                   pathFactory={props.pathFactory}
-                  key={`fieldset-${props.path.join('&')}-${f.key}${index}`}
+                  key={`fieldset-${key}-${f.key}${index}`}
                   data={{
                     value: f.data.term?.value,
                     termType: f.data.term?.termType,
@@ -599,6 +594,7 @@ export function Property({
             }
             <button
               name="edit"
+              key={uuidv4()}
               hidden={//! props.disabled ||
                 props.hidden}
               onClick={() => {
@@ -613,6 +609,8 @@ export function Property({
             </button>
             <button
               name="delete"
+              key={uuidv4()}
+
               hidden={//! disabled ||
                 props.hidden}
               onClick={() => {
@@ -624,13 +622,13 @@ export function Property({
               type="button"
             >
               x
-      </button>
+            </button>
           </>
         ) : (
           <>
             <props.Input
               // TODO: REMOVE index here
-              key={`fieldset-${props.path.join('&')}-${f.key}${index}`}
+              key={`fieldset-${key}-${f.key}${index}`}
               props={f.data}
               onChange={(data) => {
                 dispatch({
@@ -654,11 +652,12 @@ export function Property({
             />
           </>
         ))}
-        <Fields
-          {...props}
-          path={[...props.path, props.field]}
-          data={f.data}
-          fields={getFields(props.field.value as sh.NodeShape)}
+          <Fields
+            {...props}
+            key={uuidv4()}
+            path={[...props.path, props.field]}
+            data={f.data}
+            fields={getFields(props.field.value as shacl.NodeShape)}
           />
         </>)}
 
@@ -685,19 +684,19 @@ function getRestrictions(property: Record<string, Resource>) {
     if (property[p].term.termType === 'Literal') {
       restrictions[/[a-z]+$/i.exec(p)?.[0] ?? ''] = property[p].term.value;
     }
-    if (p === 'http://www.w3.org/ns/shacl#nodeKind') {
+    if (p === sh.nodeKind.value) {
       restrictions.termType = {
         // TODO: Use proper nodekind mapping here
         in: [/[a-z]+$/i.exec(property[p].term.value)?.[0]],
       };
     }
-    if (p === 'http://www.w3.org/ns/shacl#datatype') {
+    if (p === sh.datatype.value) {
       restrictions.datatype = {
         in: [/[a-z]+$/i.exec(property[p].term.value)?.[0]],
       };
     }
-    if (p === 'http://www.w3.org/ns/shacl#class') {
-      restrictions['http://www.w3.org/1999/02/22-rdf-syntax-ns#type'] = {
+    if (p === sh.class.value) {
+      restrictions[rdf.type.value] = {
         in: {
           BlankNode: ['BlankNode'],
           IRI: ['NamedNode'],

@@ -136,6 +136,9 @@
   "dependencies": {
     "@jeswr/use-async-effect": "^1.0.0",
     "@jeswr/use-state": "^1.0.2",
+    "@ontologies/rdf": "^1.0.0",
+    "@ontologies/rdfs": "^1.0.0",
+    "@ontologies/shacl": "^1.0.0",
     "@rdfjs/data-model": "^1.2.0",
     "copy-anything": "^2.0.3",
     "deindent": "^0.1.0",
@@ -143,7 +146,8 @@
     "n3": "^1.9.0",
     "rdf-object-proxy": "^1.0.0",
     "rdf-string-ttl": "^1.1.0",
-    "sparql-search-bar": "1.0.0-alpha.1"
+    "sparql-search-bar": "1.0.0-alpha.1",
+    "uuid": "^8.3.2"
   },
   "peerDependencies": {
     "react": "^17.0.1",

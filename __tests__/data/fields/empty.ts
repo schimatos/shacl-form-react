@@ -4,6 +4,7 @@ import type { FieldEntry, sh } from '../../../lib/types';
 // TODO [FUTURE]: REMOVE TYPE CASTIN IN TEST
 const emptyListed = {
   list: [],
+  // TODO: Add docs on self referencing iterator (related to LDflex I believe)
   [Symbol.iterator]() {
     return [emptyListed][Symbol.iterator]();
   },

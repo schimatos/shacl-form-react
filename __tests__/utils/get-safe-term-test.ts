@@ -2,7 +2,7 @@ import {
   blankNode, literal, namedNode, quad,
 } from '@rdfjs/data-model';
 import {
-  getSafeData, getSafeTerm,
+  getSafeData, getSafePropertyEntries, getSafePropertyEntry, getSafeTerm,
 } from '../../lib/utils/get-safe-term';
 
 describe('Testing error throwing behavior', () => {
@@ -175,5 +175,422 @@ describe('Testing cases where bindings are valid', () => {
           annotations: [],
         },
       );
+  });
+
+  it('Should maintain defined terms in getSafePropertyEntry', () => {
+    expect(getSafePropertyEntry({
+      valid: true,
+      qualifiedEnforced: true,
+      qualifiedValid: true,
+      preloaded: false,
+      key: 1,
+      data: {
+        term: namedNode('http://example.org#Jesse'),
+        annotations: [],
+      },
+    })).toStrictEqual({
+      valid: true,
+      qualifiedEnforced: true,
+      qualifiedValid: true,
+      preloaded: false,
+      key: 1,
+      data: {
+        term: namedNode('http://example.org#Jesse'),
+        annotations: [],
+      },
+    });
+    expect(getSafePropertyEntry({
+      valid: true,
+      qualifiedEnforced: true,
+      qualifiedValid: true,
+      preloaded: false,
+      key: 1,
+      data: {
+        term: blankNode('http://example.org#Jesse'),
+        annotations: [],
+      },
+    })).toStrictEqual({
+      valid: true,
+      qualifiedEnforced: true,
+      qualifiedValid: true,
+      preloaded: false,
+      key: 1,
+      data: {
+        term: blankNode('http://example.org#Jesse'),
+        annotations: [],
+      },
+    });
+    expect(getSafePropertyEntry({
+      valid: true,
+      qualifiedEnforced: true,
+      qualifiedValid: true,
+      preloaded: false,
+      key: 1,
+      data: {
+        term: literal('http://example.org#Jesse'),
+        annotations: [],
+      },
+    })).toStrictEqual({
+      valid: true,
+      qualifiedEnforced: true,
+      qualifiedValid: true,
+      preloaded: false,
+      key: 1,
+      data: {
+        term: literal('http://example.org#Jesse'),
+        annotations: [],
+      },
+    });
+    //
+    expect(getSafePropertyEntry({
+      valid: true,
+      qualifiedEnforced: true,
+      qualifiedValid: true,
+      preloaded: false,
+      key: 1,
+      data: {
+        term: namedNode('http://example.org#Jesse'),
+        annotations: [
+          quad(
+            namedNode('http://example.org#Jesse'),
+            namedNode('http://example.org#type'),
+            namedNode('http://example.org#Person'),
+          )],
+      },
+    })).toStrictEqual({
+      valid: true,
+      qualifiedEnforced: true,
+      qualifiedValid: true,
+      preloaded: false,
+      key: 1,
+      data: {
+        term: namedNode('http://example.org#Jesse'),
+        annotations: [quad(
+          namedNode('http://example.org#Jesse'),
+          namedNode('http://example.org#type'),
+          namedNode('http://example.org#Person'),
+        )],
+      },
+    });
+    expect(getSafePropertyEntry({
+      valid: true,
+      qualifiedEnforced: true,
+      qualifiedValid: true,
+      preloaded: false,
+      key: 1,
+      data: {
+        term: blankNode('http://example.org#Jesse'),
+        annotations: [quad(
+          namedNode('http://example.org#Jesse'),
+          namedNode('http://example.org#type'),
+          namedNode('http://example.org#Person'),
+        )],
+      },
+    })).toStrictEqual({
+      valid: true,
+      qualifiedEnforced: true,
+      qualifiedValid: true,
+      preloaded: false,
+      key: 1,
+      data: {
+        term: blankNode('http://example.org#Jesse'),
+        annotations: [quad(
+          namedNode('http://example.org#Jesse'),
+          namedNode('http://example.org#type'),
+          namedNode('http://example.org#Person'),
+        )],
+      },
+    });
+    expect(getSafePropertyEntry({
+      valid: true,
+      qualifiedEnforced: true,
+      qualifiedValid: true,
+      preloaded: false,
+      key: 1,
+      data: {
+        term: literal('http://example.org#Jesse'),
+        annotations: [quad(
+          namedNode('http://example.org#Jesse'),
+          namedNode('http://example.org#type'),
+          namedNode('http://example.org#Person'),
+        )],
+      },
+    })).toStrictEqual({
+      valid: true,
+      qualifiedEnforced: true,
+      qualifiedValid: true,
+      preloaded: false,
+      key: 1,
+      data: {
+        term: literal('http://example.org#Jesse'),
+        annotations: [quad(
+          namedNode('http://example.org#Jesse'),
+          namedNode('http://example.org#type'),
+          namedNode('http://example.org#Person'),
+        )],
+      },
+    });
+  });
+  it('Not have equality no equal terms with one passed through get safe term', () => {
+    expect(getSafePropertyEntry({
+      valid: true,
+      qualifiedEnforced: true,
+      qualifiedValid: true,
+      preloaded: false,
+      key: 1,
+      data: {
+        term: namedNode('http://example.org#Jesse'),
+        annotations: [],
+      },
+    }))
+      .not.toStrictEqual({
+        valid: true,
+        qualifiedEnforced: true,
+        qualifiedValid: true,
+        preloaded: false,
+        key: 1,
+        data: {
+          term: blankNode('http://example.org#Jesse'),
+          annotations: [],
+        },
+      });
+    expect(getSafePropertyEntry({
+      valid: true,
+      qualifiedEnforced: true,
+      qualifiedValid: true,
+      preloaded: false,
+      key: 1,
+      data: {
+        term: blankNode('http://example.org#Jesse'),
+        annotations: [],
+      },
+    }))
+      .not.toStrictEqual({
+        valid: true,
+        qualifiedEnforced: true,
+        qualifiedValid: true,
+        preloaded: false,
+        key: 1,
+        data: {
+          term: literal('http://example.org#Jesse'),
+          annotations: [],
+        },
+      });
+    expect(getSafePropertyEntry({
+      valid: true,
+      qualifiedEnforced: true,
+      qualifiedValid: true,
+      preloaded: false,
+      key: 1,
+      data: {
+        term: literal('http://example.org#Jesse'),
+        annotations: [],
+      },
+    }))
+      .not.toStrictEqual({
+        valid: true,
+        qualifiedEnforced: true,
+        qualifiedValid: true,
+        preloaded: false,
+        key: 1,
+        data: {
+          term: literal('http://example.org#Jesse', 'en'),
+          annotations: [],
+        },
+      });
+    expect(getSafePropertyEntry({
+      valid: true,
+      qualifiedEnforced: true,
+      qualifiedValid: true,
+      preloaded: false,
+      key: 1,
+      data: {
+        term: literal('http://example.org#Jesse'),
+        annotations: [],
+      },
+    }))
+      .not.toStrictEqual({
+        valid: true,
+        qualifiedEnforced: true,
+        qualifiedValid: true,
+        preloaded: false,
+        key: 1,
+        data:
+        {
+          term: literal('http://example.org#Jesse', namedNode('http://example.org#Datatype')),
+          annotations: [],
+        },
+      });
+    expect(getSafePropertyEntry({
+      valid: true,
+      qualifiedEnforced: true,
+      qualifiedValid: true,
+      preloaded: false,
+      key: 1,
+      data: {
+        term: literal('http://example.org#Jesse', 'en'),
+        annotations: [],
+      },
+    }))
+      .not.toStrictEqual({
+        valid: true,
+        qualifiedEnforced: true,
+        qualifiedValid: true,
+        preloaded: false,
+        key: 1,
+        data:
+        {
+          term: literal('http://example.org#Jesse', namedNode('http://example.org#Datatype')),
+          annotations: [],
+        },
+      });
+  });
+  it('Should maintain defined terms in getSafePropertyEntries', () => {
+    expect(getSafePropertyEntries([{
+      valid: true,
+      qualifiedEnforced: true,
+      qualifiedValid: true,
+      preloaded: false,
+      key: 1,
+      data: {
+        term: namedNode('http://example.org#Jesse'),
+        annotations: [],
+      },
+    }, {
+      valid: true,
+      qualifiedEnforced: true,
+      qualifiedValid: true,
+      preloaded: false,
+      key: 1,
+      data: {
+        term: blankNode('http://example.org#Jesse'),
+        annotations: [],
+      },
+    }, {
+      valid: true,
+      qualifiedEnforced: true,
+      qualifiedValid: true,
+      preloaded: false,
+      key: 1,
+      data: {
+        term: literal('http://example.org#Jesse'),
+        annotations: [],
+      },
+    }, {
+      valid: true,
+      qualifiedEnforced: true,
+      qualifiedValid: true,
+      preloaded: false,
+      key: 1,
+      data: {
+        term: namedNode('http://example.org#Jesse'),
+        annotations: [
+          quad(
+            namedNode('http://example.org#Jesse'),
+            namedNode('http://example.org#type'),
+            namedNode('http://example.org#Person'),
+          )],
+      },
+    }, {
+      valid: true,
+      qualifiedEnforced: true,
+      qualifiedValid: true,
+      preloaded: false,
+      key: 1,
+      data: {
+        term: blankNode('http://example.org#Jesse'),
+        annotations: [quad(
+          namedNode('http://example.org#Jesse'),
+          namedNode('http://example.org#type'),
+          namedNode('http://example.org#Person'),
+        )],
+      },
+    }, {
+      valid: true,
+      qualifiedEnforced: true,
+      qualifiedValid: true,
+      preloaded: false,
+      key: 1,
+      data: {
+        term: literal('http://example.org#Jesse'),
+        annotations: [quad(
+          namedNode('http://example.org#Jesse'),
+          namedNode('http://example.org#type'),
+          namedNode('http://example.org#Person'),
+        )],
+      },
+    }])).toStrictEqual([{
+      valid: true,
+      qualifiedEnforced: true,
+      qualifiedValid: true,
+      preloaded: false,
+      key: 1,
+      data: {
+        term: namedNode('http://example.org#Jesse'),
+        annotations: [],
+      },
+    }, {
+      valid: true,
+      qualifiedEnforced: true,
+      qualifiedValid: true,
+      preloaded: false,
+      key: 1,
+      data: {
+        term: blankNode('http://example.org#Jesse'),
+        annotations: [],
+      },
+    }, {
+      valid: true,
+      qualifiedEnforced: true,
+      qualifiedValid: true,
+      preloaded: false,
+      key: 1,
+      data: {
+        term: literal('http://example.org#Jesse'),
+        annotations: [],
+      },
+    }, {
+      valid: true,
+      qualifiedEnforced: true,
+      qualifiedValid: true,
+      preloaded: false,
+      key: 1,
+      data: {
+        term: namedNode('http://example.org#Jesse'),
+        annotations: [quad(
+          namedNode('http://example.org#Jesse'),
+          namedNode('http://example.org#type'),
+          namedNode('http://example.org#Person'),
+        )],
+      },
+    }, {
+      valid: true,
+      qualifiedEnforced: true,
+      qualifiedValid: true,
+      preloaded: false,
+      key: 1,
+      data: {
+        term: blankNode('http://example.org#Jesse'),
+        annotations: [quad(
+          namedNode('http://example.org#Jesse'),
+          namedNode('http://example.org#type'),
+          namedNode('http://example.org#Person'),
+        )],
+      },
+    }, {
+      valid: true,
+      qualifiedEnforced: true,
+      qualifiedValid: true,
+      preloaded: false,
+      key: 1,
+      data: {
+        term: literal('http://example.org#Jesse'),
+        annotations: [quad(
+          namedNode('http://example.org#Jesse'),
+          namedNode('http://example.org#type'),
+          namedNode('http://example.org#Person'),
+        )],
+      },
+    }]);
   });
 });

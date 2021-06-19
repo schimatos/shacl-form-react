@@ -12,4 +12,8 @@ describe('Testing the is valid utility function', () => {
   it('Should work on basic property shapes', () => {
     expect(isValid(emptyProperty, {})).toBe(false);
   });
+  it('Should throw error on invalid field', () => {
+    // @ts-expect-error
+    expect(() => { isValid({}, {}); }).toThrowError();
+  });
 });

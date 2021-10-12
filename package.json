@@ -74,7 +74,7 @@
     "eslint-plugin-unused-imports": "^1.1.0",
     "jest": "^27.0.1",
     "jest-axe": "^5.0.0",
-    "jest-extended": "^0.11.5",
+    "jest-extended": "^1.0.0",
     "jsonld-streaming-parser": "^2.2.1",
     "node-polyfill-webpack-plugin": "^1.1.0",
     "pre-commit": "^1.2.2",

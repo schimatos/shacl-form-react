@@ -8,7 +8,7 @@ describe('Testing that all paths in the SHACL', () => {
     const NodeShapes = await ProxiedNodeShapes;
     for (const shape of NodeShapes) {
       for (const { path } of shape.sh$property) {
-        await expect(() => pathToSparql(path)).not.toThrowError();
+        expect(() => pathToSparql(path)).not.toThrowError();
       }
     }
     expect.hasAssertions();

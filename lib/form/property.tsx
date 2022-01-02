@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { Fragment, useReducer } from 'react';
 import type {
   NamedNode, BlankNode, Literal, Quad,
 } from 'rdf-js';
@@ -583,84 +583,88 @@ export function Property({
           }
         }} />}
       <Fieldset key={`fieldset-${props.path.join('&')}`} {...props}>
-        {fields.map((f, index) => <>{(f.preloaded ? (
-          <>
-            {
-              f.data.term?.termType === 'BlankNode' || f.data.term?.termType === 'NamedNode'
-                ? <ToLabel
-                  pathFactory={props.pathFactory}
-                  key={`fieldset-${props.path.join('&')}-${f.key}${index}`}
-                  data={{
-                    value: f.data.term?.value,
-                    termType: f.data.term?.termType,
-                    'http://www.w3.org/2000/01/rdf-schema#label': undefined,
-                  }} />
-                : `${f.data.term}`
-            }
-            <button
-              name="edit"
-              hidden={//! props.disabled ||
-                props.hidden}
-              onClick={() => {
-                dispatch({
-                  type: 'unlock',
-                  index,
-                });
-              }}
-              type="button"
-            >
-              {'\u270E'}
-            </button>
-            <button
-              name="delete"
-              hidden={//! disabled ||
-                props.hidden}
-              onClick={() => {
-                dispatch({
-                  type: 'delete',
-                  index,
-                });
-              }}
-              type="button"
-            >
-              x
-      </button>
-          </>
-        ) : (
-          <>
-            <props.Input
-              // TODO: REMOVE index here
-              key={`fieldset-${props.path.join('&')}-${f.key}${index}`}
-              props={f.data}
-              onChange={(data) => {
-                dispatch({
-                  type: 'update',
-                  index,
-                  data,
-                  onChange: props.onChange,
-                  path: props.path,
-                });
-              }}
-              data={{
-                pathFactory: props.pathFactory,
-                queryEngine: props.queryEngine,
-              }}
-              constraints={
+        {fields.map((f, index) => (
+          <Fragment
+            key={`fieldset-fragment-${props.path.join('&')}-${f.key}${index}`}
+          >
+            {(f.preloaded ? (
+              <>
                 {
-                  restrictions: getRestrictions(props.field.value.property),
+                  f.data.term?.termType === 'BlankNode' || f.data.term?.termType === 'NamedNode'
+                    ? <ToLabel
+                      pathFactory={props.pathFactory}
+                      key={`fieldset-${props.path.join('&')}-${f.key}${index}`}
+                      data={{
+                        value: f.data.term?.value,
+                        termType: f.data.term?.termType,
+                        'http://www.w3.org/2000/01/rdf-schema#label': undefined,
+                      }} />
+                    : `${f.data.term}`
                 }
-              }
-              label={label}
+                <button
+                  name="edit"
+                  hidden={//! props.disabled ||
+                    props.hidden}
+                  onClick={() => {
+                    dispatch({
+                      type: 'unlock',
+                      index,
+                    });
+                  }}
+                  type="button"
+                >
+                  {'\u270E'}
+                </button>
+                <button
+                  name="delete"
+                  hidden={//! disabled ||
+                    props.hidden}
+                  onClick={() => {
+                    dispatch({
+                      type: 'delete',
+                      index,
+                    });
+                  }}
+                  type="button"
+                >
+                  x
+                </button>
+              </>
+            ) : (
+              <>
+                <props.Input
+                  // TODO: REMOVE index here
+                  // key={`fieldset-${props.path.join('&')}-${f.key}${index}`}
+                  props={f.data}
+                  onChange={(data) => {
+                    dispatch({
+                      type: 'update',
+                      index,
+                      data,
+                      onChange: props.onChange,
+                      path: props.path,
+                    });
+                  }}
+                  data={{
+                    pathFactory: props.pathFactory,
+                    queryEngine: props.queryEngine,
+                  }}
+                  constraints={
+                    {
+                      restrictions: getRestrictions(props.field.value.property),
+                    }
+                  }
+                  label={label}
+                />
+              </>
+            ))}
+            <Fields
+              {...props}
+              path={[...props.path, props.field]}
+              data={f.data}
+              fields={getFields(props.field.value as sh.NodeShape)}
             />
-          </>
-        ))}
-        <Fields
-          {...props}
-          path={[...props.path, props.field]}
-          data={f.data}
-          fields={getFields(props.field.value as sh.NodeShape)}
-          />
-        </>)}
+          </Fragment>))}
 
       </Fieldset>
 

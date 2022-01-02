@@ -1,6 +1,8 @@
 import { ProxiedNodeShapes } from 'shacl-test-as-object';
 import { pathToSparql } from '../../lib/utils';
 
+jest.useFakeTimers();
+
 describe('Testing that all paths in the SHACL', () => {
   it('Should transform all paths in test suite without error', async () => {
     const NodeShapes = await ProxiedNodeShapes;

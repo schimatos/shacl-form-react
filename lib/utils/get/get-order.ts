@@ -1,8 +1,10 @@
-import { namedNode } from '@rdfjs/data-model';
+import factory from '@rdfjs/data-model';
 import type { AnyResource } from 'rdf-object-proxy';
 import type {
   FieldType, GroupEntry, LogicalCollection, sh,
 } from '../../types';
+
+const { namedNode } = factory;
 
 // TODO: Fix - order can be a decimal value
 export function toInteger(num: AnyResource, fallback: number = Infinity): number {

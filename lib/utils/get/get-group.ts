@@ -1,5 +1,7 @@
-import { namedNode } from '@rdfjs/data-model';
+import factory from '@rdfjs/data-model';
 import type { sh, LogicalCollection } from '../../types';
+
+const { namedNode } = factory;
 
 export function getGroupProperty(property: sh.PropertyShape): sh.NodeGroup | undefined {
   return 'group' in property ? property.group : undefined;

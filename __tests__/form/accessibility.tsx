@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { render } from '@testing-library/react';
 import { InferencedProxiedNodeShapes } from 'shacl-test-as-object';
 import { axe, toHaveNoViolations } from 'jest-axe';
@@ -35,4 +35,31 @@ describe('Testing the accesibility of generated with LDfields plugin', () => {
       }
     }
   }, 30000);
+});
+
+function MyComponent() {
+  const [state, setState] = useState('');
+  return <input aria-label="foo" value={state} onChange={() => { setState('boop'); }} />;
+}
+
+// This is here to test issues related to multiple
+// instances of react being introduced by multiple
+// packages and the test suite
+it('Something witout hooks', async () => {
+  const { container } = render(
+    <input aria-label="foo" />,
+  );
+  const results = await axe(container);
+  expect(results).toHaveNoViolations();
+});
+
+// This is here to test issues related to multiple
+// instances of react being introduced by multiple
+// packages and the test suite
+it('Something with hooks', async () => {
+  const { container } = render(
+    <MyComponent />,
+  );
+  const results = await axe(container);
+  expect(results).toHaveNoViolations();
 });

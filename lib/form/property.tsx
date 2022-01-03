@@ -37,6 +37,10 @@ import { Fieldset } from './fieldset';
 import { PathSelector } from './path';
 import { Fields } from './fields';
 
+// import shns from '@ontologies/shacl';
+import rdf from '@ontologies/rdf';
+import rdfs from '@ontologies/rdfs';
+
 interface State {
   fields: PropertyEntry<NamedNode | BlankNode | Literal | undefined>[];
   deleted: PropertyEntry[];
@@ -548,29 +552,17 @@ export function Property({
               subject: await d.subject,
               predicate: await d.predicate,
               values: await d.toArray(async (value: any) => {
-                const type = await value['http://www.w3.org/1999/02/22-rdf-syntax-ns#type'];
-                const label = await value['http://www.w3.org/2000/01/rdf-schema#label'];
+                const type = await value[rdf.type.value];
+                const label = await value[rdfs.label.value];
 
                 const annotations = [];
 
                 if (`${type}` !== 'undefined') {
-                  annotations.push(
-                    quad(
-                      value,
-                      namedNode('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'),
-                      type,
-                    ),
-                  );
+                  annotations.push(quad(value, rdf.type, type));
                 }
 
                 if (`${label}` !== 'undefined') {
-                  annotations.push(
-                    quad(
-                      value,
-                      namedNode('http://www.w3.org/2000/01/rdf-schema#label'),
-                      label,
-                    ),
-                  );
+                  annotations.push(quad(value, rdfs.label, label));
                 }
 
                 return {
@@ -634,7 +626,7 @@ export function Property({
               <>
                 <props.Input
                   // TODO: REMOVE index here
-                  // key={`fieldset-${props.path.join('&')}-${f.key}${index}`}
+                  key={`fieldset-${props.path.join('&')}-${f.key}${index}`}
                   props={f.data}
                   onChange={(data) => {
                     dispatch({
@@ -701,7 +693,7 @@ function getRestrictions(property: Record<string, Resource>) {
       };
     }
     if (p === 'http://www.w3.org/ns/shacl#class') {
-      restrictions['http://www.w3.org/1999/02/22-rdf-syntax-ns#type'] = {
+      restrictions[rdf.type.value] = {
         in: {
           BlankNode: ['BlankNode'],
           IRI: ['NamedNode'],

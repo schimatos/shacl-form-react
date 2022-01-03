@@ -137,6 +137,8 @@
   "dependencies": {
     "@jeswr/use-async-effect": "^1.0.0",
     "@jeswr/use-state": "^1.0.2",
+    "@ontologies/rdf": "^2.0.0",
+    "@ontologies/rdfs": "^2.0.1",
     "@rdfjs/data-model": "^1.2.0",
     "copy-anything": "^2.0.3",
     "deindent": "^0.1.0",

@@ -8,7 +8,7 @@ type uTerm = undefined | Term
 /**
  * Utility function that asserts that a term is defined
  */
- export function getSafeTerm(term: uTerm): Term {
+export function getSafeTerm(term: uTerm): Term {
   if (term) {
     return term;
   }

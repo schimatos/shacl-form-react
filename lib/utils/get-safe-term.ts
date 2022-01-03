@@ -1,12 +1,14 @@
-import type { NamedNode, BlankNode, Literal } from 'rdf-js';
+import type { NamedNode, BlankNode, Literal } from '@rdfjs/types';
 import type { PropertyEntry } from '../types';
 import type { Data } from '../types/input';
+
+type Term = NamedNode | BlankNode | Literal
+type uTerm = undefined | Term
 
 /**
  * Utility function that asserts that a term is defined
  */
-export function getSafeTerm(term: undefined | NamedNode | BlankNode | Literal):
-  NamedNode | BlankNode | Literal {
+export function getSafeTerm(term: uTerm): Term {
   if (term) {
     return term;
   }
@@ -16,8 +18,7 @@ export function getSafeTerm(term: undefined | NamedNode | BlankNode | Literal):
 /**
  * Utility function that asserts that a term in a data type is defined
  */
-export function getSafeData(data: Data<undefined | NamedNode | BlankNode | Literal>):
-  Data<NamedNode | BlankNode | Literal> {
+export function getSafeData(data: Data<uTerm>): Data<Term> {
   return {
     term: getSafeTerm(data.term),
     annotations: data.annotations,
@@ -27,9 +28,7 @@ export function getSafeData(data: Data<undefined | NamedNode | BlankNode | Liter
 /**
  * Utility function that asserts that a term in a property entry is defined
  */
-export function getSafePropertyEntry(
-  property: PropertyEntry<undefined | NamedNode | BlankNode | Literal>,
-): PropertyEntry {
+export function getSafePropertyEntry(property: PropertyEntry<uTerm>): PropertyEntry {
   return {
     ...property,
     data: getSafeData(property.data),
@@ -39,8 +38,6 @@ export function getSafePropertyEntry(
 /**
  * Utility function that asserts that a term in a property entries is defined
  */
-export function getSafePropertyEntries(
-  properties: PropertyEntry<undefined | NamedNode | BlankNode | Literal>[],
-): PropertyEntry[] {
+export function getSafePropertyEntries(properties: PropertyEntry<uTerm>[]): PropertyEntry[] {
   return properties.map(getSafePropertyEntry);
 }

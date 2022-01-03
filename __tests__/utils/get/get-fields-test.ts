@@ -57,7 +57,7 @@ describe('Testing with the SHACL test suite', () => {
       );
     }
 
-    expect(clean(fields)).toIncludeSameMembers(clean(result));
+    expect(clean(fields)).toEqual(clean(result));
 
     for (const field of fields) {
       expect(field.parent.toString()).not.toEqual(field.value.toString());
